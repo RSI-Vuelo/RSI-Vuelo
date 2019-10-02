@@ -1,0 +1,81 @@
+.search {
+  margin: 1% 0 3% 0;
+  max-width: calc(80% + 10vmin);
+}
+
+.addHeli, .home {
+  float: left;
+  border-radius: 20px;
+}
+
+.userLogin {
+  float: right;
+  border-radius: 20px;
+}
+
+.content {
+  background-color: rgba(216,216,216);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.helicopter-Img {
+  width: calc(30px + 35vmin);
+}
+
+.addHeliButton {
+  margin-bottom: 1vmax;
+}
+
+.big-title {
+  font-size: 3em;
+}
+
+.ant-layout {
+  text-align: center;
+  background-color: rgba(216,216,216,.25);
+}
+
+.ant-menu .header {
+  background-color: #002b49;
+}
+
+
+.ant-menu-item-selected .header {
+  font-size: 1.1em;
+  text-shadow: 1px 1px darkslategray;
+}
+
+.ant-form-item-control {
+  margin-right: 25vmin;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 1275px) {
+  .ant-form-item-control {
+    margin-right: 10vmin;
+    margin-left: 1vmin;
+  }
+}
+
+@media (max-width: 575px) {
+  .ant-col-xs-24.ant-form-item-label {
+    margin-left: 1vmin;
+  }
+
+  .ant-form-item-control {
+    margin-right: 1vmin;
+    margin-left: 1vmin;
+  }
+}
+
+/* rgba(216,216,216,.25) */
+/* #EB0029 */
