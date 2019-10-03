@@ -1,5 +1,5 @@
 import React from 'react';
-import { List } from 'antd';
+import { List, Row } from 'antd';
 
 import HelicopterCard from './helicopter-card';
 
@@ -7,7 +7,7 @@ const Helicopter = (props) => {
   return (
     <List
       grid={{
-        gutter: 80,
+        gutter: 40,
         xs: 1,
         sm: 2,
         md: 3,

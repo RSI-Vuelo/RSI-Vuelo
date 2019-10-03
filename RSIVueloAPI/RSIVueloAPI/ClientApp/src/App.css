@@ -43,7 +43,26 @@
 }
 
 .helicopter-Img {
-  width: calc(30px + 35vmin);
+  height: 14vmin;
+  object-fit: cover;
+}
+
+.ant-card {
+  color: white;
+  background: repeating-linear-gradient(45deg, black, transparent 350px);
+}
+
+.ant-card-meta-title {
+  color: azure;
+}
+
+.ant-card-body {
+  padding: 24px;
+  zoom: 1;
+}
+
+.ant-card-cover img {
+  border-radius: 2px 2px 0 0;
 }
 
 .addHeliButton {
@@ -95,6 +114,10 @@
   .ant-form-item-control {
     margin-right: 1vmin;
     margin-left: 1vmin;
+  }
+
+  .helicopter-Img {
+    height: 100%;
   }
 }
 
