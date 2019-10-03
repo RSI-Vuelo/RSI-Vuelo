@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Input, Button, Form, notification } from 'antd';
+import { Input, Button, Form, notification, Descriptions } from 'antd';
 import { useLocation } from 'react-router';
 import Config from '../config/app.local.config';
 
 const HeliDetailPage = (props) => {
   let location = useLocation();
   const heli = location.state.helicopter;
+  const [heliUrl] = useState(heli.src);
   const [heliModel, setHeliModel] = useState(heli.model);
   const [type, setType] = useState(heli.type);
   const [capWeight, setCapWeight] = useState(heli.capWeight);
@@ -16,6 +17,7 @@ const HeliDetailPage = (props) => {
   const [rotorDiam, setRotorDiam] = useState(heli.rotorDiam);
   const [engineType, setEngineType] = useState(heli.engineType);
   const [maxSpeed, setMaxSpeed] = useState(heli.maxSpeed);
+  const [auth] = useState(localStorage.getItem('token') || '');
 
   const formItemLayout = {
     labelCol: {
@@ -81,29 +83,54 @@ const HeliDetailPage = (props) => {
 
   return (
     <>
-    <h1 className='big-title'>Edit Helicopter</h1>
-      <Form {...formItemLayout} onSubmit={(event) => {
-        event.preventDefault();
-        updateHelicopter();
-        props.close();
-      }}>
-        <Form.Item label="Type"><Input type="text" placeholder='Type' name="type" value={type} onChange={(e) => setType(e.target.value)} /></Form.Item>
-        <Form.Item label="Model"><Input type="text" placeholder='Model' name="heliModel" value={heliModel} onChange={e => setHeliModel(e.target.value)} /></Form.Item>
-        <Form.Item label="Capacity Weight"><Input type="text" placeholder='Capacity Weight' name="capWeight" value={capWeight} onChange={e => setCapWeight(e.target.value)} /></Form.Item>
-        <Form.Item label="Crew Maximum"><Input type="text" placeholder='Crew Maximum' name="crewMax" value={crewMax} onChange={e => setCrewMax(e.target.value)} /></Form.Item>
-        <Form.Item label="Crew Minimum"><Input type="text" placeholder='Crew Minimum' name="crewMin" value={crewMin} onChange={e => setCrewMin(e.target.value)} /></Form.Item>
-        <Form.Item label="Fuselage Length"><Input type="text" placeholder='Fuselage Length' name="fuseLength" value={fuseLength} onChange={e => setFuseLength(e.target.value)} /></Form.Item>
-        <Form.Item label="Helicopter Height"><Input type="text" placeholder='Helicopter Height' name="heliHeight" value={heliHeight} onChange={e => setHeliHeight(e.target.value)} /></Form.Item>
-        <Form.Item label="Rotor Diameter"><Input type="text" placeholder='Rotor Diameter' name="rotorDiam" value={rotorDiam} onChange={e => setRotorDiam(e.target.value)} /></Form.Item>
-        <Form.Item label="Engine Type"><Input type="text" placeholder='Engine Type' name="engineType" value={engineType} onChange={e => setEngineType(e.target.value)} /></Form.Item>
-        <Form.Item label="Max Speed"><Input type="text" placeholder='Max Speed' name="" value={maxSpeed} onChange={e => setMaxSpeed(e.target.value)} /></Form.Item>
-        <span>
-          <Button type="primary" htmlType="submit" className='action-button'>Submit</Button>
-          <Button type="danger" onClick={deleteHeli} className='action-button'>Delete</Button>
-        </span>
-
-      </Form>
-
+      {auth ?
+        <>
+          <h1 className='big-title'>Edit Helicopter</h1>
+          <Form {...formItemLayout} onSubmit={(event) => {
+            event.preventDefault();
+            updateHelicopter();
+            props.close();
+          }}>
+            <Form.Item label="Type"><Input type="text" placeholder='Type' name="type" value={type} onChange={(e) => setType(e.target.value)} /></Form.Item>
+            <Form.Item label="Model"><Input type="text" placeholder='Model' name="heliModel" value={heliModel} onChange={e => setHeliModel(e.target.value)} /></Form.Item>
+            <Form.Item label="Capacity Weight"><Input type="text" placeholder='Capacity Weight' name="capWeight" value={capWeight} onChange={e => setCapWeight(e.target.value)} /></Form.Item>
+            <Form.Item label="Crew Maximum"><Input type="text" placeholder='Crew Maximum' name="crewMax" value={crewMax} onChange={e => setCrewMax(e.target.value)} /></Form.Item>
+            <Form.Item label="Crew Minimum"><Input type="text" placeholder='Crew Minimum' name="crewMin" value={crewMin} onChange={e => setCrewMin(e.target.value)} /></Form.Item>
+            <Form.Item label="Fuselage Length"><Input type="text" placeholder='Fuselage Length' name="fuseLength" value={fuseLength} onChange={e => setFuseLength(e.target.value)} /></Form.Item>
+            <Form.Item label="Helicopter Height"><Input type="text" placeholder='Helicopter Height' name="heliHeight" value={heliHeight} onChange={e => setHeliHeight(e.target.value)} /></Form.Item>
+            <Form.Item label="Rotor Diameter"><Input type="text" placeholder='Rotor Diameter' name="rotorDiam" value={rotorDiam} onChange={e => setRotorDiam(e.target.value)} /></Form.Item>
+            <Form.Item label="Engine Type"><Input type="text" placeholder='Engine Type' name="engineType" value={engineType} onChange={e => setEngineType(e.target.value)} /></Form.Item>
+            <Form.Item label="Max Speed"><Input type="text" placeholder='Max Speed' name="" value={maxSpeed} onChange={e => setMaxSpeed(e.target.value)} /></Form.Item>
+            <span>
+              <Button type="primary" htmlType="submit" className='action-button'>Submit</Button>
+              <Button type="danger" onClick={deleteHeli} className='action-button'>Delete</Button>
+            </span>
+          </Form>
+        </>
+        :
+        <>
+          <div className='flex-container'>
+            < img alt={heliModel} src={heliUrl} className='detailImg' />
+            <h1 className='big-title heli-title'>{type} {heliModel}</h1>
+          </div>
+          <Descriptions
+            bordered
+            column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
+            className='heliDescriptions'
+          >
+            <Descriptions.Item label="Type">{type}</Descriptions.Item>
+            <Descriptions.Item label="Model">{heliModel}</Descriptions.Item>
+            <Descriptions.Item label="Capacity Weight">{capWeight}</Descriptions.Item>
+            <Descriptions.Item label="Crew Maximum">{crewMax}</Descriptions.Item>
+            <Descriptions.Item label="Crew Minimum">{crewMin}</Descriptions.Item>
+            <Descriptions.Item label="Fuselage Length">{fuseLength}</Descriptions.Item>
+            <Descriptions.Item label="Helicopter Height">{heliHeight}</Descriptions.Item>
+            <Descriptions.Item label="Rotor Diameter">{rotorDiam}</Descriptions.Item>
+            <Descriptions.Item label="Engine Type">{engineType}</Descriptions.Item>
+            <Descriptions.Item label="Max Speed">{maxSpeed}</Descriptions.Item>
+          </Descriptions>
+        </>
+      }
     </>
   );
 }

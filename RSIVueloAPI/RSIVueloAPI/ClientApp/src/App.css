@@ -25,6 +25,23 @@
   color: white;
 }
 
+.flex-container {
+  display: flex;
+}
+
+.detailImg {
+  max-width: 25%;
+
+}
+
+.heliDescriptions {
+  display: flex;
+}
+
+.heli-title {
+  margin: 5% 0 0 25%;
+}
+
 .helicopter-Img {
   width: calc(30px + 35vmin);
 }
@@ -69,6 +86,10 @@
 @media (max-width: 575px) {
   .ant-col-xs-24.ant-form-item-label {
     margin-left: 1vmin;
+  }
+
+  .detailImg {
+    max-height: 100px;
   }
 
   .ant-form-item-control {
