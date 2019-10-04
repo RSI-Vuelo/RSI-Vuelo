@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Button, Form, notification, Descriptions } from 'antd';
+import { Input, Button, Form, notification, List, Carousel } from 'antd';
 import { useLocation } from 'react-router';
 import Config from '../config/app.local.config';
 
@@ -109,30 +109,42 @@ const HeliDetailPage = (props) => {
         </>
         :
         <>
-          <div className='flex-container'>
-            < img alt={heliModel} src={heliUrl} className='detailImg' />
-            <h1 className='big-title heli-title'>{type} {heliModel}</h1>
+          <div style={
+            {
+              backgroundImage: `url(${heliUrl})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: "center",
+              padding: '10%'
+            }
+          }>
+            <h1 className='big-title' style={{ color: 'lightCyan', textShadow: '2px 2px 2px black' }}>{type} {heliModel}</h1>
           </div>
-          <Descriptions
+          <List
             bordered
-            column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
-            className='heliDescriptions'
+            itemLayout="horizontal"
+            grid={{
+              gutter: 40,
+              xs: 1,
+              sm: 2,
+              md: 3,
+              lg: 4,
+              xl: 4,
+            }}
           >
-            <Descriptions.Item label="Type">{type}</Descriptions.Item>
-            <Descriptions.Item label="Model">{heliModel}</Descriptions.Item>
-            <Descriptions.Item label="Capacity Weight">{capWeight}</Descriptions.Item>
-            <Descriptions.Item label="Crew Maximum">{crewMax}</Descriptions.Item>
-            <Descriptions.Item label="Crew Minimum">{crewMin}</Descriptions.Item>
-            <Descriptions.Item label="Fuselage Length">{fuseLength}</Descriptions.Item>
-            <Descriptions.Item label="Helicopter Height">{heliHeight}</Descriptions.Item>
-            <Descriptions.Item label="Rotor Diameter">{rotorDiam}</Descriptions.Item>
-            <Descriptions.Item label="Engine Type">{engineType}</Descriptions.Item>
-            <Descriptions.Item label="Max Speed">{maxSpeed}</Descriptions.Item>
-          </Descriptions>
+            <List.Item><p>{`Type: ${type}`}</p></List.Item>
+            <List.Item><p>{`Model: ${heliModel}`}</p></List.Item>
+            <List.Item><p>{`Capacity Weight: ${capWeight}`}</p></List.Item>
+            <List.Item><p>{`Crew Maximum: ${crewMax}`}</p></List.Item>
+            <List.Item><p>{`Crew Minimum: ${crewMin}`}</p></List.Item>
+            <List.Item><p>{`Fuselage Length: ${fuseLength}`}</p></List.Item>
+            <List.Item><p>{`Helicopter Height: ${heliHeight}`}</p></List.Item>
+            <List.Item><p>{`Rotor Diameter: ${rotorDiam}`}</p></List.Item>
+            <List.Item><p>{`Engine Type: ${engineType}`}</p></List.Item>
+            <List.Item><p>{`Max Speed: ${maxSpeed}`}</p></List.Item>
+          </List>
         </>
       }
     </>
   );
 }
-
 export default HeliDetailPage;

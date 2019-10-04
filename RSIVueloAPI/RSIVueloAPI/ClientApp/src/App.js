@@ -184,8 +184,8 @@ function App() {
 
   ])
 
-  function handleError(err) {
-    notification['error' + err]({
+  function handleError() {
+    notification['error']({
       message: 'Oh No! Something went wrong!',
       description: `Sorry about that! It will be back up and running in a jiffy!`
     });

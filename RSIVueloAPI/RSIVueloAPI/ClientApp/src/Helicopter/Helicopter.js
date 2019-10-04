@@ -42,9 +42,9 @@ function Helicopter(props) {
         </Sider>
         <Layout>
           <Content>
-            <h1 className='big-title'>Helicopters</h1>
+            <h1 className='big-title'>{typeSelected === 'All' || isEmpty(typeSelected) ? 'Helicopters' : typeSelected}</h1>
             <Search
-              placeholder="Search for helicopters"
+              placeholder={`Search for${typeSelected === 'All' || isEmpty(typeSelected) ? '' : ` ${typeSelected}`} Helicopters`}
               onChange={(e) => handleSearch(e.target.value)}
               className='search'
               enterButton
