@@ -1,10 +1,15 @@
-import React from 'react';
-import { Card } from 'antd';
+import React, { useState } from 'react';
+import { Card, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
 const HelicopterCard = (props) => {
+  const [active, setActive] = useState();
+
+  function showMoreInfo() {
+    setActive(true);
+  }
 
   return (
     <>
@@ -15,13 +20,16 @@ const HelicopterCard = (props) => {
         }
       }}
       >
-        < Card
-          hoverable
-          className='helicopter-card'
-          cover={< img alt="example" src={props.helicopter.src} className='helicopter-Img' />}
-        >
-          <Meta title={props.helicopter.model} description={props.helicopter.date} />
-        </Card >
+        <Tooltip placement='bottom' title='Learn More' mouseEnterDelay={0.5} >
+          < Card
+            hoverable
+            className='helicopter-card'
+            cover={< img alt="example" src={props.helicopter.src} className='helicopter-Img' />}
+            onMouseOver={() => showMoreInfo}
+          >
+            <Meta title={props.helicopter.model} description={props.helicopter.date} />
+          </Card >
+        </Tooltip>
       </Link>
     </>
   )

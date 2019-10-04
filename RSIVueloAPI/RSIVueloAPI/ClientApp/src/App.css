@@ -61,6 +61,10 @@
   zoom: 1;
 }
 
+.ant-card-bordered {
+  border: 1px solid darkgray;
+}
+
 .ant-card-cover img {
   border-radius: 2px 2px 0 0;
 }
