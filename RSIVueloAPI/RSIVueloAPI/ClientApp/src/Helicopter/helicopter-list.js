@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Row } from 'antd';
+import { List } from 'antd';
 
 import HelicopterCard from './helicopter-card';
 

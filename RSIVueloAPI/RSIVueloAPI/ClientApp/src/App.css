@@ -65,6 +65,19 @@
   border: 1px solid darkgray;
 }
 
+.hamburger {
+  float: right;
+}
+
+.ant-carousel {
+  text-align: center;
+  width: 50%;
+  margin: auto;
+  line-height: 160px;
+  background: #rgba(216,216,216,.25);
+  overflow: hidden;
+}
+
 .ant-card-cover img {
   border-radius: 2px 2px 0 0;
 }
