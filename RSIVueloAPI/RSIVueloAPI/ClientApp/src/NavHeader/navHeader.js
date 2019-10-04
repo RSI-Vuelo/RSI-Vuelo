@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Icon } from 'antd';
 
 const NavHeader = () => {
+  const [auth] = useState(localStorage.getItem('token') || '');
 
   return (
     <Menu mode="horizontal" theme='dark'>
@@ -12,18 +13,30 @@ const NavHeader = () => {
           Home
         </Link>
       </Menu.Item>
-      <Menu.Item className='addHeli'>
+      {auth ? <Menu.Item className='addHeli'>
         <Link to="/addHeli">
           <Icon type="plus-circle" />
           Add Helicopter
           </Link>
-      </Menu.Item>
-      <Menu.Item className='userLogin'>
-        <Link to='/login'>
-          <Icon type="profile" />
-          Login
+      </Menu.Item> : ''}
+      {auth ?
+        <Menu.Item className='userLogin'>
+          <Link to='/' onClick={() => {
+            localStorage.removeItem('token');
+            document.location.reload();
+          }}>
+            <Icon type="profile" />
+            Logout
+          </Link>
+        </Menu.Item>
+        :
+        <Menu.Item className='userLogin'>
+          <Link to='/login'>
+            <Icon type="profile" />
+            Login
         </Link>
-      </Menu.Item>
+        </Menu.Item>
+      }
     </Menu>
   )
 }

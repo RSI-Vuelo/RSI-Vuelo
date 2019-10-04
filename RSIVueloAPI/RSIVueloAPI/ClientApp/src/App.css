@@ -25,8 +25,44 @@
   color: white;
 }
 
+.flex-container {
+  display: flex;
+}
+
+.detailImg {
+  max-width: 25%;
+
+}
+
+.heliDescriptions {
+  display: flex;
+}
+
+.heli-title {
+  margin: 5% 0 0 25%;
+}
+
 .helicopter-Img {
-  width: calc(30px + 35vmin);
+  height: 14vmin;
+  object-fit: cover;
+}
+
+.ant-card {
+  color: white;
+  background: repeating-linear-gradient(45deg, black, transparent 350px);
+}
+
+.ant-card-meta-title {
+  color: azure;
+}
+
+.ant-card-body {
+  padding: 24px;
+  zoom: 1;
+}
+
+.ant-card-cover img {
+  border-radius: 2px 2px 0 0;
 }
 
 .addHeliButton {
@@ -71,9 +107,17 @@
     margin-left: 1vmin;
   }
 
+  .detailImg {
+    max-height: 100px;
+  }
+
   .ant-form-item-control {
     margin-right: 1vmin;
     margin-left: 1vmin;
+  }
+
+  .helicopter-Img {
+    height: 100%;
   }
 }
 
