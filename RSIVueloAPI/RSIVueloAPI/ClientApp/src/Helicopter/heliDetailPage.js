@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Input, Button, Form, notification, List, Carousel } from 'antd';
+import { Input, Button, Form, notification, List } from 'antd';
 import { useLocation } from 'react-router';
 import Config from '../config/app.local.config';
 
-const HeliDetailPage = (props) => {
+const HeliDetailPage = () => {
   let location = useLocation();
   const heli = location.state.helicopter;
   const [heliUrl] = useState(heli.src);
@@ -31,8 +31,7 @@ const HeliDetailPage = (props) => {
   };
 
   function deleteHeli() {
-    props.close();
-    fetch(`${Config.websiteServiceUrl}helicopter/${props.heli._id}`, { method: `DELETE` })
+    fetch(`${Config.websiteServiceUrl}helicopter/${heli._id}`, { method: `DELETE` })
       .then(res => {
         if (!res.ok) {
           throw Error(res.statusText);
@@ -89,7 +88,6 @@ const HeliDetailPage = (props) => {
           <Form {...formItemLayout} onSubmit={(event) => {
             event.preventDefault();
             updateHelicopter();
-            props.close();
           }}>
             <Form.Item label="Type"><Input type="text" placeholder='Type' name="type" value={type} onChange={(e) => setType(e.target.value)} /></Form.Item>
             <Form.Item label="Model"><Input type="text" placeholder='Model' name="heliModel" value={heliModel} onChange={e => setHeliModel(e.target.value)} /></Form.Item>

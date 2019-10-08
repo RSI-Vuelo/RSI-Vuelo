@@ -53,9 +53,23 @@
   object-fit: cover;
 }
 
-.ant-card {
+.helicopter-card {
   color: white;
   background: repeating-linear-gradient(45deg, black, transparent 350px);
+}
+
+.loginCard {
+  width: 60%;
+  margin: 10vmin auto;
+  padding: 1vmin;
+}
+
+.loginInput {
+  margin-left: 30vmin;
+}
+
+.loginButton {
+  margin: 0 0 15px 0;
 }
 
 .ant-card-meta-title {
@@ -71,17 +85,13 @@
   border: 1px solid darkgray;
 }
 
-.hamburger {
-  float: right;
+.loginIcon {
+  margin: -100px 0 5px 0;
+  border: solid 1px black;
 }
 
-.ant-carousel {
-  text-align: center;
-  width: 50%;
-  margin: auto;
-  line-height: 160px;
-  background: #rgba(216,216,216,.25);
-  overflow: hidden;
+.hamburger {
+  float: right;
 }
 
 .ant-card-cover img {

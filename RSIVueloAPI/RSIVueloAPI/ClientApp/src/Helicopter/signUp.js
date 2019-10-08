@@ -1,12 +1,11 @@
-import React, { useState, useLocation } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, notification, Card, Avatar } from 'antd';
-import { Link } from 'react-router-dom';
 import Config from '../config/app.local.config';
 
-function Login() {
+function SignUp() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
+  const [email, setEmail] = useState('');
 
   const formItemLayout = {
     labelCol: {
@@ -19,60 +18,41 @@ function Login() {
     },
   };
 
-  function clearFields() {
-    setUsername('');
-    setPassword('');
-  }
-
-  function refreshPage() {
-    useLocation.reload();
-  }
-
-  if (token) {
-    return < Link to='/' />
-  }
-
   return (
     <>
       <Card className='loginCard'>
         <Avatar size={120} className='loginIcon' icon="user" />
-        <h1 className='big-title'>Log In</h1>
+        <h1 className='big-title'>Create Account</h1>
         <Form {...formItemLayout} onSubmit={(e) => {
           e.preventDefault();
-          authenticateUser();
+          handleSubmit();
         }} >
+          <Form.Item><Input type="text" className='loginInput' placeholder='Email' name="email" value={email} onChange={(e) => setEmail(e.target.value)} /></Form.Item>
           <Form.Item><Input type="text" className='loginInput' placeholder='Username' name="username" value={username} onChange={(e) => setUsername(e.target.value)} /></Form.Item>
           <Form.Item><Input type="text" className='loginInput' placeholder='Password' name="password" value={password} onChange={(e) => setPassword(e.target.value)} /></Form.Item>
-          <Button type="primary" htmlType="submit" className='loginButton'>Sign In</Button>
-          <Link to='/signUp' ><p>Not a member yet? Sign up!</p></Link>
+          <Button type="primary" htmlType="submit" className='loginButton'>Sign Up</Button>
         </Form>
       </Card>
     </>
-  );
+  )
 
-  function authenticateUser() {
-    const user = {
+  function handleSubmit() {
+    const newUser = {
+      email: email,
       username: username,
       password: password
     }
-    fetch(`${Config.websiteServiceUrl}user/login`, {
+    fetch(`${Config.websiteServiceUrl}user/signUp`, {
       method: 'POST',
-      body: JSON.stringify(user)
+      body: JSON.stringify(newUser)
     })
-      .then(res => {
-        clearFields();
-        localStorage.setItem("token", res.data.token);
-        setToken(res.data.token);
-        refreshPage();
-      })
       .catch(err => {
         notification['error']({
           message: 'Oh No! Something went wrong!',
-          description: `Sorry about that! This class could not be removed from the list`
+          description: `Sorry about that! Your account was created`
         });
-        clearFields();
       });
   }
 }
 
-export default Login;
+export default SignUp;
