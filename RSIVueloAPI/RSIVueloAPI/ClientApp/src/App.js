@@ -10,6 +10,7 @@ import NavHeader from './NavHeader/navHeader';
 import AddHeli from './Helicopter/addHeli';
 import HeliDetailPage from './Helicopter/heliDetailPage';
 import Login from './Helicopter/login';
+import SignUp from './Helicopter/signUp';
 
 function App() {
   const { Content, Header } = Layout;
@@ -204,6 +205,7 @@ function App() {
               <Route path='/addHeli' exact render={() => <AddHeli handleError={handleError} />} />
               <Route path={`/heliDetailPage/:id`} exact render={() => <HeliDetailPage />} />
               <Route path='/login' exact render={() => <Login />} />
+              <Route path='/signUp' exact render={() => <SignUp />} />
             </Content>
           </Layout>
         </Layout>

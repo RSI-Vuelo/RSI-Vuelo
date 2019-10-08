@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Input, List, Drawer, Button, Divider, Slider, Radio } from 'antd';
+import React, { useState } from 'react';
+import { Input, Drawer, Button, Divider, Slider, Radio } from 'antd';
 import { isEmpty } from 'lodash'
 
 import HelicopterList from './helicopter-list';
