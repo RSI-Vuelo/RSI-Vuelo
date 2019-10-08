@@ -22,15 +22,15 @@ function App() {
     {
       '_id': helicopterHash1,
       'type': 'Focke-Wulf',
-      'model': 'Hw 6093450934561',
-      'capWeight': '28000',
-      'crewMax': '4',
-      'crewMin': '3',
-      'fuseLength': '98ft 10in',
-      'heliHeight': '18ft 11in',
-      'rotorDiam': '60',
+      'model': 'Test',
+      'capWeight': '45000',
+      'crewMax': '11',
+      'crewMin': '5',
+      'fuseLength': '180',
+      'heliHeight': '30',
+      'rotorDiam': '90',
       'engineType': '',
-      'maxSpeed': '170 knots',
+      'maxSpeed': '300 knots',
       'src': 'https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x553/gallery-1488384411-screen-shot-2017-03-01-at-110225-am.png?resize=980:*'
     },
     {

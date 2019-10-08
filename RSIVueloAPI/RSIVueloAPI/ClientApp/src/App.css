@@ -1,6 +1,12 @@
 .search {
-  margin: 1% 0 3% 0;
+  /* margin: 1% 0 3% 0; */
+  margin: auto;
   max-width: calc(80% + 10vmin);
+}
+
+.filterButton {
+  max-width: 20vmin;
+  margin: 1em auto;
 }
 
 .addHeli, .home {
