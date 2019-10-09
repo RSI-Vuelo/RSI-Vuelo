@@ -18,6 +18,12 @@ function SignUp() {
     },
   };
 
+  function clearFields() {
+    setUsername('');
+    setPassword('');
+    setEmail('');
+  }
+
   return (
     <>
       <Card className='loginCard'>
@@ -42,12 +48,15 @@ function SignUp() {
       username: username,
       password: password
     }
-    fetch(`${Config.websiteServiceUrl}user/signUp`, {
+    fetch(`${Config.websiteServiceUrl}user`, {
       method: 'POST',
       body: JSON.stringify(newUser)
     })
+      .then(
+        clearFields()
+      )
       .catch(err => {
-        notification['error']({
+        notification[`error: ${err}`]({
           message: 'Oh No! Something went wrong!',
           description: `Sorry about that! Your account was created`
         });

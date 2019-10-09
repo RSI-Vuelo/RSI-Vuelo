@@ -8,17 +8,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
 
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 6 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 16 },
-    },
-  };
-
   function clearFields() {
     setUsername('');
     setPassword('');
@@ -37,7 +26,7 @@ function Login() {
       <Card className='loginCard'>
         <Avatar size={120} className='loginIcon' icon="user" />
         <h1 className='big-title'>Log In</h1>
-        <Form {...formItemLayout} onSubmit={(e) => {
+        <Form onSubmit={(e) => {
           e.preventDefault();
           authenticateUser();
         }} >
@@ -55,13 +44,14 @@ function Login() {
       username: username,
       password: password
     }
-    fetch(`${Config.websiteServiceUrl}user/login`, {
+    fetch(`${Config.websiteServiceUrl}user`, {
       method: 'POST',
       body: JSON.stringify(user)
     })
       .then(res => {
-        clearFields();
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem('username', username)
+        clearFields();
         setToken(res.data.token);
         refreshPage();
       })

@@ -5,6 +5,8 @@ import { Menu, Icon } from 'antd';
 const NavHeader = () => {
   const [auth] = useState(localStorage.getItem('token') || '');
 
+  const { SubMenu } = Menu;
+
   return (
     <>
       <Menu mode="horizontal" theme='dark'>
@@ -21,15 +23,19 @@ const NavHeader = () => {
             </Link>
         </Menu.Item> : ''}
         {auth ?
-          <Menu.Item className='userLogin'>
-            <Link to='/' onClick={() => {
-              localStorage.removeItem('token');
-              document.location.reload();
-            }}>
-              <Icon type="profile" />
-              Logout
-              </Link>
-          </Menu.Item>
+          <SubMenu className='userLogin' title={<><Icon type="profile" className='userProfileItem' />{localStorage.username}</>} >
+            <Menu.Item>
+              <Link to='/' onClick={() => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                document.location.reload();
+              }}>
+                <Icon type="profile" />
+                Logout
+            </Link>
+            </Menu.Item>
+          </SubMenu>
+
           :
           <Menu.Item className='userLogin'>
             <Link to='/login'>

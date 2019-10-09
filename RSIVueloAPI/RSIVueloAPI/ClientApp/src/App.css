@@ -55,7 +55,7 @@
 
 .helicopter-card {
   color: white;
-  background: repeating-linear-gradient(45deg, black, transparent 350px);
+  background: repeating-linear-gradient(45deg, rgb(0, 0, 0), transparent 350px);
 }
 
 .loginCard {
@@ -65,7 +65,7 @@
 }
 
 .loginInput {
-  margin-left: 30vmin;
+  margin-left: 17%;
 }
 
 .loginButton {
@@ -87,7 +87,7 @@
 
 .loginIcon {
   margin: -100px 0 5px 0;
-  border: solid 1px black;
+  border: solid 1px gray;
 }
 
 .hamburger {
