@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -61,6 +62,19 @@ namespace RSIVueloAPI
             {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
+
+                // Handle errors differently for logging in
+                /*app.UseExceptionHandler(errorApp =>
+                    errorApp.Run(async context =>
+                    {
+                        context.Response.StatusCode = 500;
+                        context.Response.ContentType = "text/html";
+
+                        await context.Response.WriteAsync("<html lang=\"en\"><body>\r\n");
+                        await context.Response.WriteAsync("ERROR!<br><br>\r\n");
+
+                        var exceptionHandlerPathFeature = context.Features.Get<IExceptionhandlerPathFeather>();
+                    }));*/
             }
 
             app.UseSwagger();

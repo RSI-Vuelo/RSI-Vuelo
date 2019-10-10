@@ -44,13 +44,16 @@ function SignUp() {
 
   function handleSubmit() {
     const newUser = {
-      email: email,
-      username: username,
-      password: password
-    }
-    fetch(`${Config.websiteServiceUrl}user`, {
-      method: 'POST',
-      body: JSON.stringify(newUser)
+      Email: email,
+      UserName: username,
+      Password: password
+      }
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json;charset=UTF-8');
+      fetch(`${Config.websiteServiceUrl}User/CreateUser`, {
+          method: 'POST',
+          body: JSON.stringify(newUser),
+          headers: headers,
     })
       .then(
         clearFields()
