@@ -35,19 +35,11 @@ namespace RSIVueloAPI
                     options.SwaggerDoc("v1", new Info { Title = "User API", Version = "v1" });
                 });
 
-            //services.AddSingleton<UserDatabaseSettings>();
-            /*if (!string.IsNullOrWhiteSpace(Configuration["ConnectionString"]))
-                services.AddSingleton<MongoClient>(new MongoClient(Configuration["ConnectionString"]));*/
-            //services.AddSingleton<IUserDatabaseSettings, UserDatabaseSettings>();
-            //services.Configure<UserDatabaseSettings>(Configuration);
-
             services.AddSingleton<IUserDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<UserDatabaseSettings>>().Value);
 
             services.AddSingleton<UserService>();
 
-            /*(services.AddControllers()
-                .AddNewtonsoftJson(Options => Options.UseMemberCasing());*/
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IConfiguration>(Configuration);
 

@@ -42,12 +42,10 @@ namespace RSIVueloAPI.Controllers
             _userService.Create(user);
             if (user == null)
                 return NotFound();
-            //return CreatedAtRoute("GetUser", new { id = user.Id, user });
             return Ok(user);
         }
 
         [HttpPut("{id:length(24)}")]
-        //[HttpPost("[action]")]
         public IActionResult UpdateUser(string id, [FromForm]User userIn)
         {
             var user = _userService.Get(id);
