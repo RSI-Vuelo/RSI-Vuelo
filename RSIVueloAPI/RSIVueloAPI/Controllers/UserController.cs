@@ -50,12 +50,12 @@ namespace RSIVueloAPI.Controllers
         //[HttpPost("[action]")]
         public IActionResult UpdateUser(string id, [FromForm]User userIn)
         {
-            var user = _userService.Get(userIn.Id);
+            var user = _userService.Get(id);
 
             if (user == null)
                 return NotFound();
 
-            _userService.Update(userIn.Id, userIn);
+            _userService.Update(id, userIn);
             return Ok(user);
         }
 
