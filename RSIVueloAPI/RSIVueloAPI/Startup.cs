@@ -9,6 +9,8 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using RSIVueloAPI.Models;
 using RSIVueloAPI.Services;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Web.Http;
 
 namespace RSIVueloAPI
 {
@@ -16,7 +18,7 @@ namespace RSIVueloAPI
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;    
         }
 
         public IConfiguration Configuration { get; }
@@ -28,21 +30,16 @@ namespace RSIVueloAPI
             services.Configure<UserDatabaseSettings>(
                 Configuration.GetSection(nameof(UserDatabaseSettings)));
 
-
-
-            //services.AddSingleton<UserDatabaseSettings>();
-            /*if (!string.IsNullOrWhiteSpace(Configuration["ConnectionString"]))
-                services.AddSingleton<MongoClient>(new MongoClient(Configuration["ConnectionString"]));*/
-            //services.AddSingleton<IUserDatabaseSettings, UserDatabaseSettings>();
-            //services.Configure<UserDatabaseSettings>(Configuration);
+            services.AddSwaggerGen(options =>
+                {
+                    options.SwaggerDoc("v1", new Info { Title = "User API", Version = "v1" });
+                });
 
             services.AddSingleton<IUserDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<UserDatabaseSettings>>().Value);
 
             services.AddSingleton<UserService>();
 
-            /*(services.AddControllers()
-                .AddNewtonsoftJson(Options => Options.UseMemberCasing());*/
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IConfiguration>(Configuration);
 
@@ -65,6 +62,13 @@ namespace RSIVueloAPI
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            // Enable middleware to serve swagger - ui assests(HTML, JS, CSS etc.)
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "User API v1");
+            }); // URL: /swagger
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -39,5 +39,19 @@ namespace RSIVueloAPI.Services
 
         public void Remove(string id) =>
             _users.DeleteOne(user => user.Id == id);
+
+        public User LoginUser(string username, string password)
+        {
+            User user = _users.Find(x => x.UserName.Equals(username)).FirstOrDefault();
+
+            if (user != null && user.Password.Equals(password))
+            {
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

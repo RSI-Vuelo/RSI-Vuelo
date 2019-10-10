@@ -23,14 +23,11 @@ namespace RSIVueloAPI.Controllers
         }
 
         [HttpGet("[action]")]
-       // [Route("~/GetAllUsers")]
         public ActionResult<List<User>> GetAllUsers() =>
             _userService.Get();
 
-        //[HttpGet("{id:length(24)}", Name = "GetUser")]
         [HttpGet("[action]")]
-        //[HttpGet("~/GetUser")]
-        public ActionResult<User> GetUser(string id)
+        public ActionResult<User> GetUser([FromForm]string id)
         {
             var user = _userService.Get(id);
 
@@ -40,18 +37,16 @@ namespace RSIVueloAPI.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult<User> CreateUser([FromForm]User user) 
+        public ActionResult<User> CreateUser([FromForm]User user)
         {
-            var temp = user;
             _userService.Create(user);
-
-            return CreatedAtRoute("GetUser", new { id = user.Id, user });
-            //return user;
+            if (user == null)
+                return NotFound();
+            return Ok(user);
         }
 
-        //[HttpPut("{id:length(24)}")]
-        [HttpPut]
-        public IActionResult Update(string id, User userIn)
+        [HttpPut("{id:length(24)}")]
+        public IActionResult UpdateUser(string id, [FromForm]User userIn)
         {
             var user = _userService.Get(id);
 
@@ -59,12 +54,11 @@ namespace RSIVueloAPI.Controllers
                 return NotFound();
 
             _userService.Update(id, userIn);
-            return NoContent();
+            return Ok(user);
         }
 
-        //[HttpDelete("{id:length(24)}")]
-        [HttpDelete]
-        public IActionResult Delete(string id)
+        [HttpDelete("{id:length(24)}")]
+        public IActionResult DeleteUser(string id)
         {
             var user = _userService.Get(id);
 
@@ -72,45 +66,19 @@ namespace RSIVueloAPI.Controllers
                 return NotFound();
 
             _userService.Remove(user.Id);
-            return NoContent();
+            return Ok(user);
         }
 
-        // GET: api/User
-        /*([HttpGet]
-        //[Route("api/User/values")]
-        public List<User> GetAll()
+        [HttpPost("[action]")]
+        public IActionResult Login([FromForm]string username, [FromForm] string password)
         {
-            return users;
-        }*/
+            var user =_userService.LoginUser(username, password);
+            if (user == null)
+            {
+                return NotFound(user);
+            }
 
-
-
-        // GET: api/User/5
-        /*[HttpGet("{id}", Name = "Get")]
-        public ActionResult Get(int id)
-        {
-            var product = users.FirstOrDefault(u => u.Id == id);
-            if (product == null)
-                return NotFound();
-            return Ok(product);
-        }*/
-
-        /*// POST: api/User
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
+            return Ok(user);
         }
-
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }*/
     }
 }
