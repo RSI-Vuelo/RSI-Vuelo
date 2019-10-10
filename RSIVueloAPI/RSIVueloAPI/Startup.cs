@@ -9,6 +9,8 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using RSIVueloAPI.Models;
 using RSIVueloAPI.Services;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Web.Http;
 
 namespace RSIVueloAPI
 {
@@ -16,7 +18,7 @@ namespace RSIVueloAPI
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;    
         }
 
         public IConfiguration Configuration { get; }
@@ -28,7 +30,10 @@ namespace RSIVueloAPI
             services.Configure<UserDatabaseSettings>(
                 Configuration.GetSection(nameof(UserDatabaseSettings)));
 
-
+            services.AddSwaggerGen(options =>
+                {
+                    options.SwaggerDoc("v1", new Info { Title = "User API", Version = "v1" });
+                });
 
             //services.AddSingleton<UserDatabaseSettings>();
             /*if (!string.IsNullOrWhiteSpace(Configuration["ConnectionString"]))
@@ -65,6 +70,13 @@ namespace RSIVueloAPI
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            // Enable middleware to serve swagger - ui assests(HTML, JS, CSS etc.)
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "User API v1");
+            }); // URL: /swagger
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
