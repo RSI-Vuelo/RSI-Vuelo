@@ -27,6 +27,9 @@ namespace RSIVueloAPI.Services
 
         public User Create(User user)
         {
+            // all newly created users will have 'user' role and empty favorites list
+            user.Role = "user";
+            user.favorites = new List<string>();
             _users.InsertOne(user);
             return user;
         }
@@ -45,13 +48,9 @@ namespace RSIVueloAPI.Services
             User user = _users.Find(x => x.UserName.Equals(username)).FirstOrDefault();
 
             if (user != null && user.Password.Equals(password))
-            {
-                return user;
-            }
-            else
-            {
+                return user;           
+            else // user not found or wrong password
                 return null;
-            }
         }
     }
 }

@@ -37,7 +37,7 @@ namespace RSIVueloAPI.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult<User> CreateUser([FromForm]User user)
+        public ActionResult<User> CreateUser(User user)
         {
             _userService.Create(user);
             if (user == null)
