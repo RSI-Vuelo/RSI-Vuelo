@@ -44,8 +44,8 @@ function Login() {
       username: username,
       password: password
     }
-    fetch(`${Config.websiteServiceUrl}user`, {
-      method: 'POST',
+    fetch(`${Config.websiteServiceUrl}User/Login`, {
+      method: 'GET',
       body: JSON.stringify(user)
     })
       .then(res => {
