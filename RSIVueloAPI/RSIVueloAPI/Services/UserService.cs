@@ -27,12 +27,24 @@ namespace RSIVueloAPI.Services
 
         public User Create(User user)
         {
+            // all newly created users will have 'user' role, empty favorites list and [id] attribute set by MongoDB
+            user.Role = "user";
+            user.favorites = new List<string>();
+            user.Id = null;
+            if (_users.Find(x => x.UserName.Equals(user.UserName)).Any()) // true if dupe user is found, otherwise false
+                return null;
+            
             _users.InsertOne(user);
             return user;
         }
 
-        public void Update(string id, User userIn) =>
+        public void Update(string id, User userIn)
+        {
+            // don't allow users to be updated to admin and edit [id] attribute
+            userIn.Role = "user";
+            userIn.Id = id;
             _users.ReplaceOne(user => user.Id == id, userIn);
+        }
 
         public void Remove(User userIn) =>
             _users.DeleteOne(user => user.Id == userIn.Id);
@@ -45,13 +57,9 @@ namespace RSIVueloAPI.Services
             User user = _users.Find(x => x.UserName.Equals(username)).FirstOrDefault();
 
             if (user != null && user.Password.Equals(password))
-            {
-                return user;
-            }
-            else
-            {
+                return user;           
+            else // user not found or wrong password
                 return null;
-            }
         }
     }
 }
