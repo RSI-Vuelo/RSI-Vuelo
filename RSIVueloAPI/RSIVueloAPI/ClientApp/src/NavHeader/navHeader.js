@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Icon } from 'antd';
 
-const NavHeader = () => {
+const NavHeader = (props) => {
   const [auth] = useState(localStorage.getItem('token') || '');
 
   const { SubMenu } = Menu;
@@ -38,10 +38,17 @@ const NavHeader = () => {
 
           :
           <Menu.Item className='userLogin'>
-            <Link to='/login'>
+            <Link to={{
+              pathname: '/login',
+              state: {
+                users: props.users
+              }
+            }}
+            >
               <Icon type="profile" />
               Login
-              </Link>
+            </Link>
+
           </Menu.Item>
         }
       </Menu>

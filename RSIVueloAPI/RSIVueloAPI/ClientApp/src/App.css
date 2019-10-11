@@ -54,8 +54,8 @@
 }
 
 .helicopter-card {
-  color: white;
-  background: repeating-linear-gradient(45deg, rgb(0, 0, 0), transparent 350px);
+  /* background: repeating-linear-gradient(45deg, rgb(0, 0, 0), transparent 350px); */
+  background: whitesmoke;
 }
 
 .loginCard {
@@ -73,7 +73,7 @@
 }
 
 .ant-card-meta-title {
-  color: azure;
+  color: darkslategray;
 }
 
 .ant-card-body {
