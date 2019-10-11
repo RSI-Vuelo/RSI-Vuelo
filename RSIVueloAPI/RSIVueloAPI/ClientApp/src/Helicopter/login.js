@@ -34,6 +34,7 @@ function Login(props) {
           history.push('/');
           refreshPage();
         } else {
+          clearFields();
           notification['error']({
             message: 'Oh No! Something went wrong!',
             description: `The Username or Password you entered was incorrect`
