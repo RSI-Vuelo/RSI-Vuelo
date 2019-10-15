@@ -22,6 +22,15 @@ namespace RSIVueloAPI.Models
         [JsonProperty("username")]        
         public string UserName { get; set; }
 
+
+        [BsonElement(elementName: "passwordHash")]
+        [JsonProperty("passwordHash")]
+        public byte[] PasswordHash { get; set; }
+
+        [BsonElement(elementName: "passwordSalt")]
+        [JsonProperty("passwordSalt")]
+        public byte[] PasswordSalt { get; set; }
+
         [BsonElement(elementName: "password")]
         [JsonProperty("password")]
         public string Password { get; set; }
