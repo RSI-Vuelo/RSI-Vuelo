@@ -9,10 +9,12 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using RSIVueloAPI.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RSIVueloAPI.Controllers
 {
     [Route("api/[controller]")]
+    //[Authorize]
     [ApiController]
     public class UserController : ControllerBase
     {

@@ -1,5 +1,5 @@
 const config = {
-  websiteServiceUrl: "https://localhost:4000/api/"
+  websiteServiceUrl: "https://localhost:44308/api/"
 }
 
 export default config
