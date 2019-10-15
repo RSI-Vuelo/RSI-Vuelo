@@ -95,7 +95,7 @@ namespace RSIVueloAPI
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
+            /*app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
 
@@ -103,7 +103,7 @@ namespace RSIVueloAPI
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
-            });
+            });*/
         }
     }
 }

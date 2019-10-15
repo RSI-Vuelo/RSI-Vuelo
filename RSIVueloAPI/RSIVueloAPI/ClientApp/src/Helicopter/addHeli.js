@@ -89,7 +89,6 @@ function AddHeli(props) {
         <Form.Item label="Max Speed"><Input type="text" placeholder='Max Speed' name="maxSpeed" value={maxSpeed} onChange={(e) => setMaxSpeed(e.target.value)} /></Form.Item>
         <Button type="primary" htmlType="submit" className='addHeliButton'>Submit</Button>
       </Form>
-
     </>
   );
 }

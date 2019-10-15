@@ -41,7 +41,6 @@ function Helicopter(props) {
       r.rotorDiam >= rotorDiam &&
       r.maxSpeed >= maxSpeed
     );
-    console.log(filteredResults);
     setFiltHeli(filteredResults);
   }
 
