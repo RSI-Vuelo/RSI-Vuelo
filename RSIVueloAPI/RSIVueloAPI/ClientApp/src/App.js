@@ -19,6 +19,14 @@ function App() {
   const helicopterHash2 = '1cc3e1cc8283f7b9d43b75452a7d08aa';
   const helicopterHash3 = 'b48828b0a86e137da4017bcaedccfc0b';
 
+  const [users] = useState([
+    {
+      'username': 'Brayden',
+      'password': 'test',
+      'email': 'test'
+    }
+  ])
+
   const [helicopters] = useState([
     {
       '_id': helicopterHash1,
@@ -204,7 +212,7 @@ function App() {
               <Route path='/' exact render={() => <Helicopter helicopters={helicopters} handleError={handleError} />} />
               <Route path='/addHeli' exact render={() => <AddHeli handleError={handleError} />} />
               <Route path={`/heliDetailPage/:id`} exact render={() => <HeliDetailPage />} />
-              <Route path='/login' exact render={() => <Login />} />
+              <Route path='/login' exact render={() => <Login users={users} />} />
               <Route path='/signUp' exact render={() => <SignUp />} />
             </Content>
           </Layout>

@@ -1,22 +1,11 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, notification, Card, Avatar } from 'antd';
+import { Form, Input, Button, Card, Avatar } from 'antd';
 import Config from '../config/app.local.config';
 
 function SignUp() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 6 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 16 },
-    },
-  };
 
   function clearFields() {
     setUsername('');
@@ -29,7 +18,7 @@ function SignUp() {
       <Card className='loginCard'>
         <Avatar size={120} className='loginIcon' icon="user" />
         <h1 className='big-title'>Create Account</h1>
-        <Form {...formItemLayout} onSubmit={(e) => {
+        <Form onSubmit={(e) => {
           e.preventDefault();
           handleSubmit();
         }} >
@@ -44,25 +33,25 @@ function SignUp() {
 
   function handleSubmit() {
     const newUser = {
-      Email: email,
-      UserName: username,
-      Password: password
-      }
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json;charset=UTF-8');
-      fetch(`${Config.websiteServiceUrl}User/CreateUser`, {
-          method: 'POST',
-          body: JSON.stringify(newUser),
-          headers: headers,
+      email: email,
+      username: username,
+      password: password
+    }
+    fetch(`${Config.websiteServiceUrl}User/CreateUser`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newUser),
     })
-      .then(
+      .then(res => {
         clearFields()
-      )
+        console.log(res)
+      })
       .catch(err => {
-        notification[`error: ${err}`]({
-          message: 'Oh No! Something went wrong!',
-          description: `Sorry about that! Your account was created`
-        });
+        console.log(err)
+        // notification[`error: ${err}`]({
+        //   message: 'Oh No! Something went wrong!',
+        //   description: `Sorry about that! Your account was created`
+        // });
       });
   }
 }

@@ -14,7 +14,6 @@ function Helicopter(props) {
   const [fuseLength, setFuseLength] = useState(50);
   const [heliHeight, setHeliHeight] = useState(5);
   const [rotorDiam, setRotorDiam] = useState(10);
-  const [engineType, setEngineType] = useState();
   const [maxSpeed, setMaxSpeed] = useState(1);
 
   const radioStyle = {
@@ -25,7 +24,7 @@ function Helicopter(props) {
 
   const allTypes = props.helicopters.map(h => h.type);
   const uniqueTypes = allTypes.filter((r, index) => allTypes.indexOf(r) === index);
-  const makeItems = uniqueTypes.map(t => <Radio value={t} style={radioStyle} onClick={() => handleSelected(t)}>{t}</Radio>);
+  const makeItems = uniqueTypes.map(t => <Radio value={t} style={radioStyle} key={t} onClick={() => handleSelected(t)}>{t}</Radio>);
 
 
 
