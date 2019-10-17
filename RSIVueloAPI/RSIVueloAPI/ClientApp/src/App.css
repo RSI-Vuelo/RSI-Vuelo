@@ -9,7 +9,8 @@
   margin: 1em auto;
 }
 
-.addHeli, .home {
+.addHeli,
+.home {
   float: left;
   border-radius: 20px;
 }
@@ -20,7 +21,7 @@
 }
 
 .content {
-  background-color: rgba(216,216,216);
+  background-color: rgba(216, 216, 216);
 }
 
 .header {
@@ -37,7 +38,6 @@
 
 .detailImg {
   max-width: 25%;
-
 }
 
 .heliDescriptions {
@@ -61,6 +61,7 @@
 .loginCard {
   width: 60%;
   margin: 10vmin auto;
+  text-align: center;
   padding: 1vmin;
 }
 
@@ -108,13 +109,12 @@
 
 .ant-layout {
   text-align: center;
-  background-color: rgba(216,216,216,.25);
+  background-color: rgba(216, 216, 216, 0.25);
 }
 
 .ant-menu .header {
   background-color: #002b49;
 }
-
 
 .ant-menu-item-selected .header {
   font-size: 1.1em;
@@ -128,26 +128,28 @@
   justify-content: center;
 }
 
-@media (max-width: 1275px) {
+/* @media (max-width: 1275px) {
   .ant-form-item-control {
-    margin-right: 10vmin;
-    margin-left: 1vmin;
+    margin: auto;
   }
-}
+} */
 
-@media (max-width: 575px) {
-  .ant-col-xs-24.ant-form-item-label {
-    margin-left: 1vmin;
+@media (max-width: 1361px) {
+  .loginCard {
+    width: 90%;
+    margin: 10vmin auto;
+    text-align: center;
+    padding: 1vmin;
   }
 
   .detailImg {
     max-height: 100px;
   }
 
-  .ant-form-item-control {
+  /* .ant-form-item-control {
     margin-right: 1vmin;
     margin-left: 1vmin;
-  }
+  } */
 
   .helicopter-Img {
     height: 100%;

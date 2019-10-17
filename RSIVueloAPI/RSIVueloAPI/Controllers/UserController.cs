@@ -100,7 +100,6 @@ namespace RSIVueloAPI.Controllers
 
             if (user == null)
                 return StatusCode(StatusCodes.Status409Conflict);
-
             _userService.Update(id, userIn);
             return Ok(userIn);
         }
