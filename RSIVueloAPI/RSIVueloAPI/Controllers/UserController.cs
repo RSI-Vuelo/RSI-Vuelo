@@ -40,12 +40,13 @@ namespace RSIVueloAPI.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult<User> CreateUser(User user)
+        public ActionResult<User> CreateUser(String user)
         {
-            var addedUser = _userService.Create(user);
-            if (addedUser == null)
-                return StatusCode(StatusCodes.Status409Conflict);
-            return Ok(user);
+            return Ok();
+            // var addedUser = _userService.Create(user);
+            // if (addedUser == null)
+            //     return StatusCode(StatusCodes.Status409Conflict);
+            // return Ok(user);
         }
 
         [HttpPut("{id:length(24)}")]
@@ -55,7 +56,6 @@ namespace RSIVueloAPI.Controllers
 
             if (user == null)
                 return StatusCode(StatusCodes.Status409Conflict);
-
             _userService.Update(id, userIn);
             return Ok(userIn);
         }
