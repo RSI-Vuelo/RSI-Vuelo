@@ -42,7 +42,6 @@ function SignUp() {
       headers: { 'Content-Type': 'application/json;charset=UTF-8' },
       accepts: "application/json",
       body: JSON.stringify(newUser),
-      mode: 'no-cors'
     })
       .then(res => {
         clearFields()
