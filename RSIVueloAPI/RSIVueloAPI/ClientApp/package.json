@@ -5,6 +5,7 @@
   "proxy": "https://34.65.100.211:27017",
   "dependencies": {
     "antd": "^3.23.4",
+    "escape-string-regexp": "^2.0.0",
     "nodemon": "^1.19.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
