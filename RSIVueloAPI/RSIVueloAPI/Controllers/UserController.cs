@@ -82,12 +82,14 @@ namespace RSIVueloAPI.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult<User> CreateUser(User user)
+        public ActionResult<User> CreateUser(User user, string password)
         {
             //User serialUser = (User) JsonConvert.DeserializeObject(user);
-            var addedUser = _userService.Create(user);
+            var addedUser = _userService.Create(user, password);
+
             if (addedUser == null)
                 return StatusCode(StatusCodes.Status409Conflict);
+
             return Ok(user);
         }
 

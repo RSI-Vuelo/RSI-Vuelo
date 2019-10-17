@@ -34,7 +34,9 @@ namespace RSIVueloAPI.Services
         public User Create(User user, string password)
         {
             // all newly created users will have 'user' role, empty favorites list and [id] attribute set by MongoDB
-            user.Role = "user";
+            // DEBUG: create an admin user with a hashed password
+            //user.Role = "user";
+            user.Role = "admin";
             user.favorites = new List<string>();
             user.Id = null;
 
@@ -62,7 +64,7 @@ namespace RSIVueloAPI.Services
 
             if (userIn == null) throw new ApplicationException("User not found");
 
-            // updates password, if any 
+            // update password w/ hash values, if any 
             if (!string.IsNullOrWhiteSpace(password))
             {
                 byte[] passwordHash, passwordSalt;
