@@ -36,7 +36,7 @@ function SignUp() {
       email: email,
       username: username,
       password: password
-    }
+      }
     fetch(`${Config.websiteServiceUrl}User/CreateUser`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

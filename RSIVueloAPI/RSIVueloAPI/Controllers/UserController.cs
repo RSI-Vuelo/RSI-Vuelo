@@ -20,7 +20,7 @@ using System.Security.Claims;
 
 namespace RSIVueloAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
@@ -37,9 +37,9 @@ namespace RSIVueloAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]User user)
+        public IActionResult Authenticate([FromBody]User user, string password)
         {
-            var temp = _userService.LoginUser(user.UserName, user.Password);
+            var temp = _userService.LoginUser(user.UserName, password);
 
             if (user == null)
                 return NotFound();
@@ -82,10 +82,10 @@ namespace RSIVueloAPI.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult<User> CreateUser(User user, string password)
+        public ActionResult<User> CreateUser(UserDTO user)
         {
             //User serialUser = (User) JsonConvert.DeserializeObject(user);
-            var addedUser = _userService.Create(user, password);
+            var addedUser = _userService.Create(user);
 
             if (addedUser == null)
                 return StatusCode(StatusCodes.Status409Conflict);

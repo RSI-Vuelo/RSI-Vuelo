@@ -31,16 +31,17 @@ namespace RSIVueloAPI.Services
         public User Get(string id) =>
             _users.Find<User>(user => user.Id == id).FirstOrDefault();
 
-        public User Create(User user, string password)
+        public User Create(UserDTO user)
         {
+            User newUser = new User(user);
             // all newly created users will have 'user' role, empty favorites list and [id] attribute set by MongoDB
             // DEBUG: create an admin user with a hashed password
             //user.Role = "user";
-            user.Role = "admin";
-            user.favorites = new List<string>();
-            user.Id = null;
+            newUser.Role = "admin";
+            newUser.favorites = new List<string>();
+            newUser.Id = null;
 
-            if (string.IsNullOrWhiteSpace(password)) // required password field
+            if (string.IsNullOrWhiteSpace(user.Password)) // required password field
                 return null;
             if (_users.Find(x => x.UserName.Equals(user.UserName)).Any()) // true if dupe user is found, otherwise false
                 return null;
@@ -49,11 +50,11 @@ namespace RSIVueloAPI.Services
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
 
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+            newUser.PasswordHash = passwordHash;
+            newUser.PasswordSalt = passwordSalt;
 
-            _users.InsertOne(user);
-            return user;
+            _users.InsertOne(newUser);
+            return newUser;
         }
 
         public void Update(string id, User userIn, string password = null)
