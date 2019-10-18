@@ -37,11 +37,11 @@ namespace RSIVueloAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]User user, string password)
+        public IActionResult Authenticate([FromBody]UserDTO dto)
         {
-            var temp = _userService.LoginUser(user.UserName, password);
+            var temp = _userService.LoginUser(dto.UserName, dto.Password);
 
-            if (user == null)
+            if (dto == null)
                 return NotFound();
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -50,7 +50,7 @@ namespace RSIVueloAPI.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim(ClaimTypes.Name, dto.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -60,9 +60,9 @@ namespace RSIVueloAPI.Controllers
 
             return Ok(new
             {
-                Id = user.Id,
-                Username = user.UserName,
-                Email = user.Email,
+                Id = dto.Id,
+                Username = dto.UserName,
+                Email = dto.Email,
                 Token = tokenString
             });
         }
