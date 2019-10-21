@@ -36,7 +36,7 @@ namespace RSIVueloAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost("Authenticate")]
         public IActionResult Authenticate([FromBody]UserDTO dto)
         {
             var temp = _userService.LoginUser(dto.UserName, dto.Password);
