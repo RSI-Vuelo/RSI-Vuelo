@@ -46,32 +46,6 @@ function Login(props) {
       });
   }
 
-  //const Button = withRouter(({ history }) => (
-  //  <button type="primary"
-  //    className='loginButton'
-  //    onClick={() => {
-  //      const asdf = props.users.filter((u) => u.username === username && u.password === password);
-  //      console.log(asdf);
-  //      if (!isEmpty(asdf)) {
-  //        localStorage.setItem("token", 'token');
-  //        localStorage.setItem('username', username);
-  //        setToken('token');
-  //        clearFields();
-  //        history.push('/');
-  //        refreshPage();
-  //      } else {
-  //        clearFields();
-  //        notification['error']({
-  //          message: 'Oh No! Something went wrong!',
-  //          description: `The Username or Password you entered was incorrect`
-  //        });
-  //      }
-  //    }}
-  //  >
-  //    Sign In
-  //  </button >
-  //))
-
   return (
     <>
       <Card className="loginCard">
