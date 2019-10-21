@@ -1,5 +1,4 @@
 .search {
-  /* margin: 1% 0 3% 0; */
   margin: auto;
   max-width: calc(80% + 10vmin);
 }
@@ -21,7 +20,7 @@
 }
 
 .content {
-  background-color: rgba(216, 216, 216);
+  background-color: #69c2c2;
 }
 
 .header {
@@ -54,8 +53,7 @@
 }
 
 .helicopter-card {
-  /* background: repeating-linear-gradient(45deg, rgb(0, 0, 0), transparent 350px); */
-  background: whitesmoke;
+  background: #efb381;
 }
 
 .loginCard {
@@ -74,7 +72,7 @@
 }
 
 .ant-card-meta-title {
-  color: darkslategray;
+  color: #075757;
 }
 
 .ant-card-body {
@@ -105,6 +103,7 @@
 
 .big-title {
   font-size: 3em;
+  color: #075757e;
 }
 
 .ant-layout {
@@ -128,12 +127,6 @@
   justify-content: center;
 }
 
-/* @media (max-width: 1275px) {
-  .ant-form-item-control {
-    margin: auto;
-  }
-} */
-
 @media (max-width: 1361px) {
   .loginCard {
     width: 90%;
@@ -146,15 +139,7 @@
     max-height: 100px;
   }
 
-  /* .ant-form-item-control {
-    margin-right: 1vmin;
-    margin-left: 1vmin;
-  } */
-
   .helicopter-Img {
     height: 100%;
   }
 }
-
-/* rgba(216,216,216,.25) */
-/* #EB0029 */
