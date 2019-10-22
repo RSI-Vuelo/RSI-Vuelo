@@ -150,12 +150,12 @@ namespace RSIVueloAPI.Controllers
         [HttpGet("[action]")]
         public IActionResult Logout()
         {
-            Task authCheck = null;
-            Task.Run(async () => await HttpContext.Authentication.SignOutAsync("CookieAuthentication")).RunSynchronously();
+            //Task authCheck = null;
+            //Task.Run(async () => await HttpContext.Authentication.SignOutAsync("CookieAuthentication")).RunSynchronously();
             //Task.Run(async () => await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync(
             //    ).RunSynchronously();
             Response.Cookies.Delete("key");
-            return Ok(authCheck);
+            return Ok();
         }
     }
 }
