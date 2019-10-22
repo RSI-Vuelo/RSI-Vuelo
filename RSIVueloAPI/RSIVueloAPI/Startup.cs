@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +15,7 @@ using RSIVueloAPI.Helpers;
 using RSIVueloAPI.Models;
 using RSIVueloAPI.Services;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -71,6 +73,48 @@ namespace RSIVueloAPI
                 ValidateAudience = false
             };
                 });
+
+            // cookie auth
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //    .AddCookie(options =>
+            //    {
+            //        // disable automatic challenge (always redirect user when on page)
+            //        options.Events.OnRedirectToLogin = (context) =>
+            //        {
+            //            context.Response.StatusCode = 401;
+            //            return Task.CompletedTask;
+            //        };
+
+            //        // cookie settings
+            //        options.Cookie.HttpOnly = true;
+            //        options.Cookie.SameSite = SameSiteMode.Strict;
+            //        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            //        options.Cookie.Name = "CookieAuthentication";
+            //        options.LoginPath = "/login";
+            //        options.AccessDeniedPath = "/Forbidden";
+            //        options.Cookie.Expiration = TimeSpan.FromDays(10);
+            //        options.ExpireTimeSpan = TimeSpan.FromDays(10);
+            //    });
+            services.ConfigureApplicationCookie(options =>
+            {
+                // disable automatic challenge (always redirect user when on page)
+                options.Events.OnRedirectToLogin = (context) =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+
+                // cookie settings
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.Name = "CookieAuthentication";
+                options.LoginPath = "/login";
+                options.AccessDeniedPath = "/Forbidden";
+                options.Cookie.Expiration = TimeSpan.FromDays(10);
+                options.ExpireTimeSpan = TimeSpan.FromDays(10);
+            });
+                
             // requires using Microsoft.Extensions.Options
             services.Configure<UserDatabaseSettings>(
                 Configuration.GetSection(nameof(UserDatabaseSettings)));

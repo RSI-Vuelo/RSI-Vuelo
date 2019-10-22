@@ -52,11 +52,32 @@ namespace RSIVueloAPI.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
+
+            // cookie auth
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName)
+            };
+            var userIdentity = new ClaimsIdentity(claims, "Login");
+
+            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+            var options = new CookieOptions();
+            options.HttpOnly = true;
+            options.SameSite = SameSiteMode.Strict;
+            options.Secure = true;
+            options.Path = "/login";
+            options.Expires = DateTime.Now.AddDays(10);
+            options.IsEssential = true; // don't know if need this
+            Response.Cookies.Append("key", "value", options);
+            
+           // Task.Run(async () => await HttpContext.Authentication.SignInAsync("CookieAuthentication", principal)).RunSynchronously();
+           // Task.Run(async () => await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(
+           //     , principal)).RunSynchronously();
 
             return Ok(new
             {
@@ -81,6 +102,7 @@ namespace RSIVueloAPI.Controllers
             return user;
         }
 
+        [AllowAnonymous]
         [HttpPost("[action]")]
         public ActionResult<User> CreateUser(UserDTO user)
         {
@@ -128,6 +150,11 @@ namespace RSIVueloAPI.Controllers
         [HttpGet("[action]")]
         public IActionResult Logout()
         {
+            //Task authCheck = null;
+            //Task.Run(async () => await HttpContext.Authentication.SignOutAsync("CookieAuthentication")).RunSynchronously();
+            //Task.Run(async () => await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync(
+            //    ).RunSynchronously();
+            Response.Cookies.Delete("key");
             return Ok();
         }
     }
