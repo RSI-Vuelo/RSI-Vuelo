@@ -18,34 +18,27 @@ function Login(props) {
     window.location.reload();
   }
 
-  function authenticateUser() {
+  async function authenticateUser() {
     const user = {
       username: username,
       password: password
     };
-    fetch(`${Config.websiteServiceUrl}User/Authenticate`, {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-      accepts: 'application/json',
-      body: JSON.stringify(user)
-    })
-      .then(res => {
-        console.log(res);
-        setToken(res.token);
-      })
-      .then(() => {
-        localStorage.setItem("token", token);
-        localStorage.setItem("username", username);
-        //clearFields();
-        //refreshPage();
-      })
-      .catch(err => {
-        notification["error"]({
-          message: "Oh No! Something went wrong!",
-          description: `Sorry about that! We could not sign you in`
-        });
-        clearFields();
+      const response = await fetch(`${Config.websiteServiceUrl}User/Authenticate`, {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+              'Accept': 'application/json',
+              //'Authentication': user
+          },
+          accepts: 'application/json',
+          body: JSON.stringify(user),
       });
+      const userData = await response.json();
+      if (!response.ok) throw new Error(response.status);
+      console.log(response);
+      setToken(userData.token);
+      localStorage.setItem("Token", token)
+      localStorage.setItem("username", userData.username)
   }
 
   return (
