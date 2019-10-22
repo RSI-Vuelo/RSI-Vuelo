@@ -23,8 +23,10 @@ function Login(props) {
       username: username,
       password: password
     };
-    fetch(`${Config.websiteServiceUrl}User/Authentication`, {
+    fetch(`${Config.websiteServiceUrl}User/Authenticate`, {
       method: "POST",
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+      accepts: 'application/json',
       body: JSON.stringify(user)
     })
       .then(res => {
@@ -34,8 +36,8 @@ function Login(props) {
       .then(() => {
         localStorage.setItem("token", token);
         localStorage.setItem("username", username);
-        // clearFields();
-        // refreshPage();
+        //clearFields();
+        //refreshPage();
       })
       .catch(err => {
         notification["error"]({

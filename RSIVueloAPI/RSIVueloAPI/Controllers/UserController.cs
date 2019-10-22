@@ -20,7 +20,7 @@ using System.Security.Claims;
 
 namespace RSIVueloAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
@@ -39,7 +39,7 @@ namespace RSIVueloAPI.Controllers
         [HttpPost("Authenticate")]
         public IActionResult Authenticate([FromBody]UserDTO dto)
         {
-            var temp = _userService.LoginUser(dto.UserName, dto.Password);
+            var user = _userService.LoginUser(dto.UserName, dto.Password);
 
             if (dto == null)
                 return NotFound();
@@ -50,7 +50,7 @@ namespace RSIVueloAPI.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, dto.Id.ToString())
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -60,9 +60,9 @@ namespace RSIVueloAPI.Controllers
 
             return Ok(new
             {
-                Id = dto.Id,
-                Username = dto.UserName,
-                Email = dto.Email,
+                Id = user.Id,
+                Username = user.UserName,
+                Email = user.Email,
                 Token = tokenString
             });
         }

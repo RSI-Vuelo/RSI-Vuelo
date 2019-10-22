@@ -115,6 +115,8 @@ namespace RSIVueloAPI
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "User API v1");
             }); // URL: /swagger
 
+            app.UseAuthentication();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
