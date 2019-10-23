@@ -4,7 +4,6 @@
 }
 
 .filterButton {
-  max-width: 20vmin;
   margin: 1em auto;
 }
 
@@ -19,16 +18,11 @@
   border-radius: 20px;
 }
 
-.content {
-  background-color: #69c2c2;
-}
-
 .header {
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .flex-container {
@@ -36,7 +30,7 @@
 }
 
 .detailImg {
-  max-width: 25%;
+  max-width: 75%;
 }
 
 .heliDescriptions {
@@ -48,12 +42,8 @@
 }
 
 .helicopter-Img {
-  height: 14vmin;
+  height: 20vmin;
   object-fit: cover;
-}
-
-.helicopter-card {
-  background: #efb381;
 }
 
 .loginCard {
@@ -71,10 +61,6 @@
   margin: 0 0 15px 0;
 }
 
-.ant-card-meta-title {
-  color: #075757;
-}
-
 .ant-card-body {
   padding: 24px;
   zoom: 1;
@@ -89,10 +75,6 @@
   border: solid 1px gray;
 }
 
-.hamburger {
-  float: right;
-}
-
 .ant-card-cover img {
   border-radius: 2px 2px 0 0;
 }
@@ -103,12 +85,10 @@
 
 .big-title {
   font-size: 3em;
-  color: #075757e;
 }
 
 .ant-layout {
   text-align: center;
-  background-color: rgba(216, 216, 216, 0.25);
 }
 
 .ant-menu .header {
@@ -135,11 +115,15 @@
     padding: 1vmin;
   }
 
-  .detailImg {
-    max-height: 100px;
-  }
-
   .helicopter-Img {
-    height: 100%;
+    height: 28vmin;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 575px) {
+  .helicopter-Img {
+    height: 50vmin;
+    object-fit: cover;
   }
 }

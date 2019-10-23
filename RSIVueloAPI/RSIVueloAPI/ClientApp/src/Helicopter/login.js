@@ -23,7 +23,7 @@ function Login(props) {
       username: username,
       password: password
     };
-    fetch(`${Config.websiteServiceUrl}User/Authentication`, {
+    fetch(`${Config.userServiceUrl}Authentication`, {
       method: "POST",
       body: JSON.stringify(user)
     })
