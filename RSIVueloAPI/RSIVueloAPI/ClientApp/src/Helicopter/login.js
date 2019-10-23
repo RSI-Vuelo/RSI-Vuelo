@@ -18,12 +18,12 @@ function Login(props) {
     window.location.reload();
   }
 
-  function authenticateUser() {
+  async function authenticateUser() {
     const user = {
       username: username,
       password: password
     };
-    fetch(`${Config.userServiceUrl}Authentication`, {
+    const response = await fetch(`${Config.userServiceUrl}Authentication`, {
       method: "POST",
       body: JSON.stringify(user)
     })
@@ -44,6 +44,12 @@ function Login(props) {
         });
         clearFields();
       });
+    const userData = await response.json();
+    if (!response.ok) throw new Error(response.status);
+    console.log(response);
+    setToken(userData.token);
+    localStorage.setItem("Token", token);
+    localStorage.setItem("username", userData.username);
   }
 
   return (

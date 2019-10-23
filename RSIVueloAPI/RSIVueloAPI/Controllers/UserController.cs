@@ -20,7 +20,7 @@ using System.Security.Claims;
 
 namespace RSIVueloAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
@@ -39,7 +39,7 @@ namespace RSIVueloAPI.Controllers
         [HttpPost("Authenticate")]
         public IActionResult Authenticate([FromBody]UserDTO dto)
         {
-            var temp = _userService.LoginUser(dto.UserName, dto.Password);
+            var user = _userService.LoginUser(dto.UserName, dto.Password);
 
             if (dto == null)
                 return NotFound();
@@ -50,19 +50,40 @@ namespace RSIVueloAPI.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, dto.Id.ToString())
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
+            // cookie auth
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName)
+            };
+            var userIdentity = new ClaimsIdentity(claims, "Login");
+
+            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+            var options = new CookieOptions();
+            options.HttpOnly = true;
+            options.SameSite = SameSiteMode.Strict;
+            options.Secure = true;
+            options.Path = "/login";
+            options.Expires = DateTime.Now.AddDays(10);
+            options.IsEssential = true; // don't know if need this
+            Response.Cookies.Append("key", "value", options);
+            
+           // Task.Run(async () => await HttpContext.Authentication.SignInAsync("CookieAuthentication", principal)).RunSynchronously();
+           // Task.Run(async () => await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(
+           //     , principal)).RunSynchronously();
+
             return Ok(new
             {
-                Id = dto.Id,
-                Username = dto.UserName,
-                Email = dto.Email,
+                Id = user.Id,
+                Username = user.UserName,
+                Email = user.Email,
                 Token = tokenString
             });
         }
@@ -81,6 +102,7 @@ namespace RSIVueloAPI.Controllers
             return user;
         }
 
+        [AllowAnonymous]
         [HttpPost("[action]")]
         public ActionResult<User> CreateUser(UserDTO user)
         {
@@ -128,6 +150,11 @@ namespace RSIVueloAPI.Controllers
         [HttpGet("[action]")]
         public IActionResult Logout()
         {
+            //Task authCheck = null;
+            //Task.Run(async () => await HttpContext.Authentication.SignOutAsync("CookieAuthentication")).RunSynchronously();
+            //Task.Run(async () => await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync(
+            //    ).RunSynchronously();
+            Response.Cookies.Delete("key");
             return Ok();
         }
     }
