@@ -7,6 +7,4 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(basePackages = {"com.vuelo.Helicopter20"})
 public class MongoConfig {
 
-
-
 }
