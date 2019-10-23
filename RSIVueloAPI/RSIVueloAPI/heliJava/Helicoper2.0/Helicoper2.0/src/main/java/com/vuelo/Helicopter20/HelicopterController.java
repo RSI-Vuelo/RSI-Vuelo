@@ -1,8 +1,11 @@
 package com.vuelo.Helicopter20;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.DataInput;
 import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 
@@ -43,29 +47,14 @@ public class HelicopterController {
     }
 
     @PostMapping("/Helicopter/createHeli")
-    public Response createHelicopter(@RequestBody String json) throws IOException {
+    public Helicopter createHelicopter(@RequestBody Helicopter heli) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Response response = new Response();
-        try {
-            helicopterRepository.insert(objectMapper.readValue(json, Helicopter.class));
-        }catch(DataAccessException dae){
-            response.setStatus(500);
-            response.setMessage("Failed to insert");
-            return response;
-        }
-        catch(JsonMappingException jme){
-            response.setStatus(500);
-            response.setMessage("Incorrect JSON");
-            return response;
-        }
-        catch(Exception e){
-            response.setStatus(500);
-            response.setMessage("Unknown error");
-            return response;
-        }
-        response.setStatus(200);
-        response.setMessage("Helicopter Successfully Inserted");
-        return response;
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+            helicopterRepository.insert(heli);
+
+            return heli;
+
     }
 
 
