@@ -28,10 +28,6 @@ function App() {
       handleError(err);
     });
 
-  // const helicopterHash1 = "7b3a88b8bd33c2405ed870f489d93def";
-  // const helicopterHash2 = "1cc3e1cc8283f7b9d43b75452a7d08aa";
-  // const helicopterHash3 = "b48828b0a86e137da4017bcaedccfc0b";
-
   const [users] = useState([
     {
       username: "Brayden",
@@ -39,190 +35,6 @@ function App() {
       email: "test"
     }
   ]);
-
-  // const [helicopters] = useState([
-  //   {
-  //     _id: helicopterHash1,
-  //     type: "Focke-Wulf",
-  //     model: "Test",
-  //     capWeight: "45000",
-  //     crewMax: "11",
-  //     crewMin: "5",
-  //     fuseLength: "180",
-  //     heliHeight: "30",
-  //     rotorDiam: "90",
-  //     engineType: "",
-  //     maxSpeed: "300 knots",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x553/gallery-1488384411-screen-shot-2017-03-01-at-110225-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash1,
-  //     type: "Focke-Wulf",
-  //     model: "Hw 6093450934561",
-  //     capWeight: "28000",
-  //     crewMax: "4",
-  //     crewMin: "3",
-  //     fuseLength: "98ft 10in",
-  //     heliHeight: "18ft 11in",
-  //     rotorDiam: "60",
-  //     engineType: "",
-  //     maxSpeed: "170 knots",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x553/gallery-1488384411-screen-shot-2017-03-01-at-110225-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash1,
-  //     type: "Focke-Wulf",
-  //     model: "Hw 6093450934561",
-  //     capWeight: "28000",
-  //     crewMax: "4",
-  //     crewMin: "3",
-  //     fuseLength: "98ft 10in",
-  //     heliHeight: "18ft 11in",
-  //     rotorDiam: "60",
-  //     engineType: "",
-  //     maxSpeed: "170 knots",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x553/gallery-1488384411-screen-shot-2017-03-01-at-110225-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash1,
-  //     type: "Focke-Wulf",
-  //     model: "Hw 6093450934561",
-  //     capWeight: "28000",
-  //     crewMax: "4",
-  //     crewMin: "3",
-  //     fuseLength: "98ft 10in",
-  //     heliHeight: "18ft 11in",
-  //     rotorDiam: "60",
-  //     engineType: "",
-  //     maxSpeed: "170 knots",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x553/gallery-1488384411-screen-shot-2017-03-01-at-110225-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash1,
-  //     type: "Focke-Wulf",
-  //     model: "Fw 61",
-  //     capWeight: "28000",
-  //     crewMax: "4",
-  //     crewMin: "3",
-  //     fuseLength: "98ft 10in",
-  //     heliHeight: "18ft 11in",
-  //     rotorDiam: "60",
-  //     engineType: "",
-  //     maxSpeed: "170 knots",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x553/gallery-1488384411-screen-shot-2017-03-01-at-110225-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash2,
-  //     type: "Sikorsky",
-  //     model: "R-4",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/1280x753/gallery-1488385872-screen-shot-2017-03-01-at-113048-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash3,
-  //     type: "Bell",
-  //     model: "47",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x522/gallery-1488388001-bell-47-credit-keystonegetty.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash2,
-  //     type: "Sikorsky",
-  //     model: "R-4",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/1280x753/gallery-1488385872-screen-shot-2017-03-01-at-113048-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash3,
-  //     type: "Bell",
-  //     model: "47",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x522/gallery-1488388001-bell-47-credit-keystonegetty.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash2,
-  //     type: "Sikorsky",
-  //     model: "R-4",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/1280x753/gallery-1488385872-screen-shot-2017-03-01-at-113048-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash3,
-  //     type: "Bell",
-  //     model: "47",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x522/gallery-1488388001-bell-47-credit-keystonegetty.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash2,
-  //     type: "Sikorsky",
-  //     model: "R-4",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/1280x753/gallery-1488385872-screen-shot-2017-03-01-at-113048-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash2,
-  //     type: "Sikorsky",
-  //     model: "R-4",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/1280x753/gallery-1488385872-screen-shot-2017-03-01-at-113048-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash1,
-  //     type: "Focke-Wulf",
-  //     model: "Fw 61",
-  //     capWeight: "28000",
-  //     crewMax: "4",
-  //     crewMin: "3",
-  //     fuseLength: "98ft 10in",
-  //     heliHeight: "18ft 11in",
-  //     rotorDiam: "60",
-  //     engineType: "",
-  //     maxSpeed: "170 knots",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x553/gallery-1488384411-screen-shot-2017-03-01-at-110225-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash2,
-  //     type: "Sikorsky",
-  //     model: "R-4",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/1280x753/gallery-1488385872-screen-shot-2017-03-01-at-113048-am.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash3,
-  //     type: "Bell",
-  //     model: "47",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x522/gallery-1488388001-bell-47-credit-keystonegetty.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash3,
-  //     type: "Bell",
-  //     model: "47",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x522/gallery-1488388001-bell-47-credit-keystonegetty.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash3,
-  //     type: "Bell",
-  //     model: "47",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x522/gallery-1488388001-bell-47-credit-keystonegetty.png?resize=980:*"
-  //   },
-  //   {
-  //     _id: helicopterHash3,
-  //     type: "Bell",
-  //     model: "47",
-  //     src:
-  //       "https://hips.hearstapps.com/pop.h-cdn.co/assets/17/09/980x522/gallery-1488388001-bell-47-credit-keystonegetty.png?resize=980:*"
-  //   }
-  // ]);
 
   function handleError() {
     notification["error"]({
@@ -234,9 +46,9 @@ function App() {
   return (
     <Router>
       <Layout className="layout">
-        <Header className="header">
+        {/* <Header className="header">
           <NavHeader />
-        </Header>
+        </Header> */}
         <Layout>
           <Layout>
             <Content className="content">

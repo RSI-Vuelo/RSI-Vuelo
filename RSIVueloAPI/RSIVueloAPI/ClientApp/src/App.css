@@ -7,24 +7,18 @@
   margin: 1em auto;
 }
 
-.addHeli,
-.home {
-  float: left;
-  border-radius: 20px;
-}
-
-.userLogin {
-  float: right;
-  border-radius: 20px;
+.mainContent {
+  background-image: url('\images\CH-47_Chinook_helicopter_flyby.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: calc(30px + 3vw);
+  height: 100vh;
 }
 
 .header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 5vw;
 }
-
 
 .detailImg {
   max-width: 75%;
@@ -77,15 +71,17 @@
 }
 
 .big-title {
-  font-size: 3em;
+  color: midnightblue;
+  text-shadow: white 1px 0 10px;
+  padding-top: 2vh;
 }
 
 .ant-layout {
   text-align: center;
 }
 
-.ant-menu .header {
-  background-color: #002b49;
+.menuIcon {
+  padding-top: 4.5vh;
 }
 
 .ant-menu-item-selected .header {
