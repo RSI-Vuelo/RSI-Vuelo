@@ -25,16 +25,9 @@
   font-size: calc(10px + 2vmin);
 }
 
-.flex-container {
-  display: flex;
-}
 
 .detailImg {
   max-width: 75%;
-}
-
-.heliDescriptions {
-  display: flex;
 }
 
 .heli-title {

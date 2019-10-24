@@ -7,7 +7,6 @@ import Config from "../config/app.local.config";
 function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
 
   function clearFields() {
     setUsername("");
@@ -15,7 +14,7 @@ function Login(props) {
   }
 
   function refreshPage() {
-    window.location.reload();
+    window.location.href = '/';
   }
 
   async function authenticateUser() {
@@ -23,33 +22,21 @@ function Login(props) {
       username: username,
       password: password
     };
-    const response = await fetch(`${Config.userServiceUrl}Authentication`, {
+    const response = await fetch(`${Config.userServiceUrl}Authenticate`, {
       method: "POST",
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      accepts: 'application/json',
       body: JSON.stringify(user)
-    })
-      .then(res => {
-        console.log(res);
-        setToken(res.token);
-      })
-      .then(() => {
-        localStorage.setItem("token", token);
-        localStorage.setItem("username", username);
-        // clearFields();
-        // refreshPage();
-      })
-      .catch(err => {
-        notification["error"]({
-          message: "Oh No! Something went wrong!",
-          description: `Sorry about that! We could not sign you in`
-        });
-        clearFields();
-      });
+    });
     const userData = await response.json();
     if (!response.ok) throw new Error(response.status);
-    console.log(response);
-    setToken(userData.token);
-    localStorage.setItem("Token", token);
+    localStorage.setItem("token", userData.token);
     localStorage.setItem("username", userData.username);
+    refreshPage();
+    clearFields();
   }
 
   return (
@@ -82,7 +69,6 @@ function Login(props) {
               onChange={e => setPassword(e.target.value)}
             />
           </Form.Item>
-          {/*<Button onClick={(e) => authenticateUser()}/>*/}
           <Button
             type="primary"
             htmlType="submit"
@@ -101,3 +87,21 @@ function Login(props) {
 }
 
 export default Login;
+
+//.then(res => {
+    //  console.log(res);
+    //  setToken(res.token);
+    //})
+    //.then(() => {
+    //  localStorage.setItem("token", token);
+    //  localStorage.setItem("username", username);
+    //  // clearFields();
+    //  // refreshPage();
+    //})
+    //.catch(err => {
+    //  notification["error"]({
+    //    message: "Oh No! Something went wrong!",
+    //    description: Sorry about that! We could not sign you in
+    //  });
+    //  clearFields();
+    //});
