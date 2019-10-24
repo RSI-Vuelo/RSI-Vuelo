@@ -95,25 +95,37 @@ namespace RSIVueloAPI
             //        options.Cookie.Expiration = TimeSpan.FromDays(10);
             //        options.ExpireTimeSpan = TimeSpan.FromDays(10);
             //    });
-            services.ConfigureApplicationCookie(options =>
-            {
-                // disable automatic challenge (always redirect user when on page)
-                options.Events.OnRedirectToLogin = (context) =>
-                {
-                    context.Response.StatusCode = 401;
-                    return Task.CompletedTask;
-                };
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    // disable automatic challenge (always redirect user when on page)
+            //    options.Events.OnRedirectToLogin = (context) =>
+            //    {
+            //        context.Response.StatusCode = 401;
+            //        return Task.CompletedTask;
+            //    };
 
-                // cookie settings
-                options.Cookie.HttpOnly = true;
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Cookie.Name = "CookieAuthentication";
-                options.LoginPath = "/login";
-                options.AccessDeniedPath = "/Forbidden";
-                options.Cookie.Expiration = TimeSpan.FromDays(10);
-                options.ExpireTimeSpan = TimeSpan.FromDays(10);
-            });
+            //    // cookie settings
+            //    options.Cookie.HttpOnly = true;
+            //    options.Cookie.SameSite = SameSiteMode.Strict;
+            //    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            //    options.Cookie.Name = "CookieAuthentication";
+            //    options.LoginPath = "/login";
+            //    options.AccessDeniedPath = "/Forbidden";
+            //    options.Cookie.Expiration = TimeSpan.FromDays(10);
+            //    options.ExpireTimeSpan = TimeSpan.FromDays(10);
+            //});
+
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    // No consent check needed here, change this to TRUE later
+            //    options.CheckConsentNeeded = context => true;
+            //    options.MinimumSameSitePolicy = SameSiteMode.None;
+            //});
+
+            //services.AddSession(options =>
+            //{
+            //    options.Cookie.IsEssential = true;
+            //});
                 
             // requires using Microsoft.Extensions.Options
             services.Configure<UserDatabaseSettings>(
@@ -159,6 +171,7 @@ namespace RSIVueloAPI
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "User API v1");
             }); // URL: /swagger
 
+            app.UseCookiePolicy();
             app.UseAuthentication();
 
             app.UseHttpsRedirection();

@@ -73,7 +73,7 @@ namespace RSIVueloAPI.Controllers
             options.Path = "/login";
             options.Expires = DateTime.Now.AddDays(10);
             options.IsEssential = true; // don't know if need this
-            Response.Cookies.Append("key", "value", options);
+            Response.Cookies.Append("CookieKey", "true", options);
             
            // Task.Run(async () => await HttpContext.Authentication.SignInAsync("CookieAuthentication", principal)).RunSynchronously();
            // Task.Run(async () => await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(
@@ -154,7 +154,7 @@ namespace RSIVueloAPI.Controllers
             //Task.Run(async () => await HttpContext.Authentication.SignOutAsync("CookieAuthentication")).RunSynchronously();
             //Task.Run(async () => await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync(
             //    ).RunSynchronously();
-            Response.Cookies.Delete("key");
+            Response.Cookies.Delete("CookieKey");
             return Ok();
         }
     }
