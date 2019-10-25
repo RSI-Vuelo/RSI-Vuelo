@@ -149,19 +149,6 @@ namespace RSIVueloAPI.Controllers
             return Ok(user);
         }
 
-        [HttpPost("[action]")]
-        [IgnoreAntiforgeryToken]
-        public IActionResult Login(string username, string password)
-        {
-            var user =_userService.LoginUser(username, password);
-
-            if (user == null) // failed to login
-                return StatusCode(StatusCodes.Status401Unauthorized);
-
-
-            return Ok(user);
-        }
-
         [HttpGet("[action]")]
         public IActionResult Logout()
         {
