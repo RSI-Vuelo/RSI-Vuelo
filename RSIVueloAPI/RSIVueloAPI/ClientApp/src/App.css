@@ -16,9 +16,9 @@
   height: 100vh;
 }
 
-.header {
+/* .header {
   padding: 5vw;
-}
+} */
 
 .detailImg {
   max-width: 75%;
@@ -70,10 +70,23 @@
   margin-bottom: 1vmax;
 }
 
+.ant-drawer-close {
+  color: white;
+}
+
 .big-title {
   color: midnightblue;
   text-shadow: white 1px 0 10px;
   padding-top: 2vh;
+}
+
+.drawerContentTitle {
+  color: white;
+}
+
+.ant-drawer-content, .ant-drawer-body, .navHeader {
+  background-color: midnightblue;
+  color: white;
 }
 
 .ant-layout {

@@ -133,13 +133,14 @@ function Helicopter(props) {
         maskClosable={true}
         className="filterOptionDrawer"
       >
-        <h3>Type</h3>
+        <h3 className='drawerContentTitle'>Type</h3>
         <Radio.Group>
           <Radio
             value={"All"}
             style={radioStyle}
             defaultChecked={true}
             onClick={() => handleSelected("All")}
+            className='drawerContentTitle'
           >
             All
           </Radio>
@@ -147,7 +148,7 @@ function Helicopter(props) {
         </Radio.Group>
         <Divider />
         <span>
-          <h3>Minimum Capacity Weight</h3>
+          <h3 className='drawerContentTitle'>Minimum Capacity Weight</h3>
           <p>{`${capWeight} pounds`}</p>
         </span>
         <Slider
@@ -159,7 +160,7 @@ function Helicopter(props) {
         />
         <Divider />
         <span>
-          <h3>Maximum Crew Members</h3>
+          <h3 className='drawerContentTitle'>Maximum Crew Members</h3>
           <p>{`${crewMax} ${crewMax === 1 ? "person" : "people"}`}</p>
         </span>
         <Slider
@@ -171,7 +172,7 @@ function Helicopter(props) {
         />
         <Divider />
         <span>
-          <h3>Minimum Crew Members</h3>
+          <h3 className='drawerContentTitle'>Minimum Crew Members</h3>
           <p>{`${crewMin} ${crewMin === 1 ? "person" : "people"}`}</p>
         </span>
         <Slider
@@ -183,7 +184,7 @@ function Helicopter(props) {
         />
         <Divider />
         <span>
-          <h3>Minimum Fuselage Length</h3>
+          <h3 className='drawerContentTitle'>Minimum Fuselage Length</h3>
           <p>{`${fuseLength} meters`}</p>
         </span>
         <Slider
@@ -195,7 +196,7 @@ function Helicopter(props) {
         />
         <Divider />
         <span>
-          <h3>Minimum Helicopter Height</h3>
+          <h3 className='drawerContentTitle'>Minimum Helicopter Height</h3>
           <p>{`${heliHeight} meters`}</p>
         </span>
         <Slider
@@ -207,7 +208,7 @@ function Helicopter(props) {
         />
         <Divider />
         <span>
-          <h3>Minimum Rotor Diameter</h3>
+          <h3 className='drawerContentTitle'>Minimum Rotor Diameter</h3>
           <p>{`${rotorDiam} meters`}</p>
         </span>
         <Slider
@@ -218,10 +219,10 @@ function Helicopter(props) {
           onAfterChange={handleSlider}
         />
         <Divider />
-        <h3>Engine Type</h3>
+        <h3 className='drawerContentTitle'>Engine Type</h3>
         <Divider />
         <span>
-          <h3>Minimum Top Speed</h3>
+          <h3 className='drawerContentTitle'>Minimum Top Speed</h3>
           <p>{`${maxSpeed} knot${maxSpeed === 1 ? "" : "s"}`}</p>
         </span>
         <Slider

@@ -7,14 +7,13 @@ import "antd/dist/antd.css";
 import "./App.css";
 
 import Helicopter from "./Helicopter/Helicopter";
-import NavHeader from "./NavHeader/navHeader";
 import AddHeli from "./Helicopter/addHeli";
 import HeliDetailPage from "./Helicopter/heliDetailPage";
 import Login from "./Helicopter/login";
 import SignUp from "./Helicopter/signUp";
 
 function App() {
-  const { Content, Header } = Layout;
+  const { Content } = Layout;
   const [helicopters, setHelicopters] = useState([]);
 
   fetch(`${Config.helicopterServiceUrl}`, { method: `GET` })
@@ -46,41 +45,34 @@ function App() {
   return (
     <Router>
       <Layout className="layout">
-        {/* <Header className="header">
-          <NavHeader />
-        </Header> */}
-        <Layout>
-          <Layout>
-            <Content className="content">
-              <Route
-                path="/"
-                exact
-                render={() => (
-                  <Helicopter
-                    helicopters={helicopters}
-                    handleError={handleError}
-                  />
-                )}
+        <Content className="content">
+          <Route
+            path="/"
+            exact
+            render={() => (
+              <Helicopter
+                helicopters={helicopters}
+                handleError={handleError}
               />
-              <Route
-                path="/addHeli"
-                exact
-                render={() => <AddHeli handleError={handleError} />}
-              />
-              <Route
-                path={`/heliDetailPage/:id`}
-                exact
-                render={() => <HeliDetailPage />}
-              />
-              <Route
-                path="/login"
-                exact
-                render={() => <Login users={users} />}
-              />
-              <Route path="/signUp" exact render={() => <SignUp />} />
-            </Content>
-          </Layout>
-        </Layout>
+            )}
+          />
+          <Route
+            path="/addHeli"
+            exact
+            render={() => <AddHeli handleError={handleError} />}
+          />
+          <Route
+            path={`/heliDetailPage/:id`}
+            exact
+            render={() => <HeliDetailPage />}
+          />
+          <Route
+            path="/login"
+            exact
+            render={() => <Login users={users} />}
+          />
+          <Route path="/signUp" exact render={() => <SignUp />} />
+        </Content>
       </Layout>
     </Router>
   );

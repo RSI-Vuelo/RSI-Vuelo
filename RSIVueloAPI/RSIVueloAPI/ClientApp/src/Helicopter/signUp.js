@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Card, Avatar } from "antd";
+import { Form, Input, Button, Card, Avatar, Row, Col } from "antd";
 import Config from "../config/app.local.config";
+import NavHeader from '../NavHeader/navHeader';
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -15,50 +16,63 @@ function SignUp() {
 
   return (
     <>
-      <Card className="loginCard">
-        <Avatar size={120} className="loginIcon" icon="user" />
-        <h1 className="big-title">Create Account</h1>
-        <Form
-          onSubmit={e => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-        >
-          <Form.Item>
-            <Input
-              type="text"
-              className="loginInput"
-              placeholder="Email"
-              name="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Input
-              type="text"
-              className="loginInput"
-              placeholder="Username"
-              name="username"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Input
-              type="text"
-              className="loginInput"
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-          </Form.Item>
-          <Button type="primary" htmlType="submit" className="loginButton">
-            Sign Up
+      <div className='mainContent'>
+        <Row className='header'>
+          <Col span={1} offset={2}>
+            <h1 className="big-title">
+              Helicopters
+            </h1>
+          </Col>
+          <Col span={1} offset={18}>
+            <NavHeader />
+          </Col>
+        </Row>
+
+        <Card className="loginCard">
+          <Avatar size={120} className="loginIcon" icon="user" />
+          <h1 className="big-title">Create Account</h1>
+          <Form
+            onSubmit={e => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
+            <Form.Item>
+              <Input
+                type="text"
+                className="loginInput"
+                placeholder="Email"
+                name="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Input
+                type="text"
+                className="loginInput"
+                placeholder="Username"
+                name="username"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Input
+                type="text"
+                className="loginInput"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+            </Form.Item>
+            <Button type="primary" htmlType="submit" className="loginButton">
+              Sign Up
           </Button>
-        </Form>
-      </Card>
+          </Form>
+        </Card>
+      </div>
     </>
   );
 

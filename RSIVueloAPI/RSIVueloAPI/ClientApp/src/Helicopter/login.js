@@ -1,8 +1,8 @@
-import React, { useState, useLocation } from "react";
-import { Form, Input, notification, Card, Avatar, Button } from "antd";
-import { Link, withRouter } from "react-router-dom";
-import { isEmpty } from "lodash";
+import React, { useState } from "react";
+import { Form, Input, Row, Col, Card, Avatar, Button } from "antd";
+import { Link } from "react-router-dom";
 import Config from "../config/app.local.config";
+import NavHeader from '../NavHeader/navHeader';
 
 function Login(props) {
   const [username, setUsername] = useState("");
@@ -41,47 +41,60 @@ function Login(props) {
 
   return (
     <>
-      <Card className="loginCard">
-        <Avatar size={120} className="loginIcon" icon="user" />
-        <h1 className="big-title">Log In</h1>
-        <Form
-          onSubmit={e => {
-            e.preventDefault();
-          }}
-        >
-          <Form.Item>
-            <Input
-              type="text"
-              className="loginInput"
-              placeholder="Username"
-              name="username"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Input
-              type="text"
-              className="loginInput"
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-          </Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            onClick={authenticateUser}
-            className="loginButton"
+      <div className='mainContent'>
+        <Row className='header'>
+          <Col span={1} offset={2}>
+            <h1 className="big-title">
+              Helicopters
+            </h1>
+          </Col>
+          <Col span={1} offset={18}>
+            <NavHeader />
+          </Col>
+        </Row>
+
+        <Card className="loginCard">
+          <Avatar size={120} className="loginIcon" icon="user" />
+          <h1 className="big-title">Log In</h1>
+          <Form
+            onSubmit={e => {
+              e.preventDefault();
+            }}
           >
-            Sign In
+            <Form.Item>
+              <Input
+                type="text"
+                className="loginInput"
+                placeholder="Username"
+                name="username"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Input
+                type="text"
+                className="loginInput"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+            </Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={authenticateUser}
+              className="loginButton"
+            >
+              Sign In
           </Button>
-          <Link to="/signUp">
-            <p>Not a member yet? Sign up!</p>
-          </Link>
-        </Form>
-      </Card>
+            <Link to="/signUp">
+              <p>Not a member yet? Sign up!</p>
+            </Link>
+          </Form>
+        </Card>
+      </div>
     </>
   );
 }
