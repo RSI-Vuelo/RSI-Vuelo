@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Input, Drawer, Button, Divider, Slider, Radio } from "antd";
+import { Input, Drawer, Button, Divider, Slider, Radio, Col, Row } from "antd";
 import { isEmpty } from "lodash";
 import escapeStringRegexp from "escape-string-regexp";
+import NavHeader from '../NavHeader/navHeader';
 
 import HelicopterList from "./helicopter-list";
 function Helicopter(props) {
@@ -47,16 +48,16 @@ function Helicopter(props) {
       typeSelected === "All"
         ? searchResults
         : searchResults.filter(
-            r =>
-              r.type === typeSelected &&
-              r.capWeight >= capWeight &&
-              r.crewMax <= crewMax &&
-              r.crewMin >= crewMin &&
-              r.fuseLength >= fuseLength &&
-              r.heliHeight >= heliHeight &&
-              r.rotorDiam >= rotorDiam &&
-              r.maxSpeed >= maxSpeed
-          );
+          r =>
+            r.type === typeSelected &&
+            r.capWeight >= capWeight &&
+            r.crewMax <= crewMax &&
+            r.crewMin >= crewMin &&
+            r.fuseLength >= fuseLength &&
+            r.heliHeight >= heliHeight &&
+            r.rotorDiam >= rotorDiam &&
+            r.maxSpeed >= maxSpeed
+        );
     setFiltHeli(filteredResults);
   }
 
@@ -70,20 +71,20 @@ function Helicopter(props) {
     const sliderResults = props.helicopters.filter(h =>
       typeSelected === "All"
         ? parseInt(h.capWeight) >= capWeight &&
-          parseInt(h.crewMax) <= crewMax &&
-          parseInt(h.crewMin) >= crewMin &&
-          parseInt(h.fuseLength) >= fuseLength &&
-          parseInt(h.heliHeight) >= heliHeight &&
-          parseInt(h.rotorDiam) >= rotorDiam &&
-          parseInt(h.maxSpeed) >= maxSpeed
+        parseInt(h.crewMax) <= crewMax &&
+        parseInt(h.crewMin) >= crewMin &&
+        parseInt(h.fuseLength) >= fuseLength &&
+        parseInt(h.heliHeight) >= heliHeight &&
+        parseInt(h.rotorDiam) >= rotorDiam &&
+        parseInt(h.maxSpeed) >= maxSpeed
         : h.type === typeSelected &&
-          parseInt(h.capWeight) >= capWeight &&
-          parseInt(h.crewMax) <= crewMax &&
-          parseInt(h.crewMin) >= crewMin &&
-          parseInt(h.fuseLength) >= fuseLength &&
-          parseInt(h.heliHeight) >= heliHeight &&
-          parseInt(h.rotorDiam) >= rotorDiam &&
-          parseInt(h.maxSpeed) >= maxSpeed
+        parseInt(h.capWeight) >= capWeight &&
+        parseInt(h.crewMax) <= crewMax &&
+        parseInt(h.crewMin) >= crewMin &&
+        parseInt(h.fuseLength) >= fuseLength &&
+        parseInt(h.heliHeight) >= heliHeight &&
+        parseInt(h.rotorDiam) >= rotorDiam &&
+        parseInt(h.maxSpeed) >= maxSpeed
     );
     setFiltHeli(sliderResults);
   }
@@ -97,18 +98,26 @@ function Helicopter(props) {
   }
 
   return (
-    <>
-      <h1 className="big-title">
-        {typeSelected === "All" || isEmpty(typeSelected)
-          ? "Helicopters"
-          : typeSelected}
-      </h1>
+    <div className='mainContent'>
+      <Row className='header'>
+        <Col span={1} offset={2}>
+          <h1 className="big-title">
+            {typeSelected === "All" || isEmpty(typeSelected)
+              ? "Helicopters"
+              : typeSelected}
+          </h1>
+        </Col>
+        <Col span={1} offset={18}>
+          <NavHeader />
+        </Col>
+      </Row>
+
       <Search
         placeholder={`Search for${
           typeSelected === "All" || isEmpty(typeSelected)
             ? ""
             : ` ${typeSelected}`
-        } Helicopters`}
+          } Helicopters`}
         onChange={e => handleSearch(e.target.value)}
         className="search"
         enterButton
@@ -124,13 +133,14 @@ function Helicopter(props) {
         maskClosable={true}
         className="filterOptionDrawer"
       >
-        <h3>Type</h3>
+        <h3 className='drawerContentTitle'>Type</h3>
         <Radio.Group>
           <Radio
             value={"All"}
             style={radioStyle}
             defaultChecked={true}
             onClick={() => handleSelected("All")}
+            className='drawerContentTitle'
           >
             All
           </Radio>
@@ -138,7 +148,7 @@ function Helicopter(props) {
         </Radio.Group>
         <Divider />
         <span>
-          <h3>Minimum Capacity Weight</h3>
+          <h3 className='drawerContentTitle'>Minimum Capacity Weight</h3>
           <p>{`${capWeight} pounds`}</p>
         </span>
         <Slider
@@ -150,7 +160,7 @@ function Helicopter(props) {
         />
         <Divider />
         <span>
-          <h3>Maximum Crew Members</h3>
+          <h3 className='drawerContentTitle'>Maximum Crew Members</h3>
           <p>{`${crewMax} ${crewMax === 1 ? "person" : "people"}`}</p>
         </span>
         <Slider
@@ -162,7 +172,7 @@ function Helicopter(props) {
         />
         <Divider />
         <span>
-          <h3>Minimum Crew Members</h3>
+          <h3 className='drawerContentTitle'>Minimum Crew Members</h3>
           <p>{`${crewMin} ${crewMin === 1 ? "person" : "people"}`}</p>
         </span>
         <Slider
@@ -174,7 +184,7 @@ function Helicopter(props) {
         />
         <Divider />
         <span>
-          <h3>Minimum Fuselage Length</h3>
+          <h3 className='drawerContentTitle'>Minimum Fuselage Length</h3>
           <p>{`${fuseLength} meters`}</p>
         </span>
         <Slider
@@ -186,7 +196,7 @@ function Helicopter(props) {
         />
         <Divider />
         <span>
-          <h3>Minimum Helicopter Height</h3>
+          <h3 className='drawerContentTitle'>Minimum Helicopter Height</h3>
           <p>{`${heliHeight} meters`}</p>
         </span>
         <Slider
@@ -198,7 +208,7 @@ function Helicopter(props) {
         />
         <Divider />
         <span>
-          <h3>Minimum Rotor Diameter</h3>
+          <h3 className='drawerContentTitle'>Minimum Rotor Diameter</h3>
           <p>{`${rotorDiam} meters`}</p>
         </span>
         <Slider
@@ -209,10 +219,10 @@ function Helicopter(props) {
           onAfterChange={handleSlider}
         />
         <Divider />
-        <h3>Engine Type</h3>
+        <h3 className='drawerContentTitle'>Engine Type</h3>
         <Divider />
         <span>
-          <h3>Minimum Top Speed</h3>
+          <h3 className='drawerContentTitle'>Minimum Top Speed</h3>
           <p>{`${maxSpeed} knot${maxSpeed === 1 ? "" : "s"}`}</p>
         </span>
         <Slider
@@ -226,7 +236,7 @@ function Helicopter(props) {
       <HelicopterList
         filtHeli={isEmpty(filtHeli) ? props.helicopters : filtHeli}
       />
-    </>
+    </div>
   );
 }
 
