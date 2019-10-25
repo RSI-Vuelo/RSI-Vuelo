@@ -73,59 +73,6 @@ namespace RSIVueloAPI
                 ValidateAudience = false
             };
                 });
-
-            // cookie auth
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //    .AddCookie(options =>
-            //    {
-            //        // disable automatic challenge (always redirect user when on page)
-            //        options.Events.OnRedirectToLogin = (context) =>
-            //        {
-            //            context.Response.StatusCode = 401;
-            //            return Task.CompletedTask;
-            //        };
-
-            //        // cookie settings
-            //        options.Cookie.HttpOnly = true;
-            //        options.Cookie.SameSite = SameSiteMode.Strict;
-            //        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-            //        options.Cookie.Name = "CookieAuthentication";
-            //        options.LoginPath = "/login";
-            //        options.AccessDeniedPath = "/Forbidden";
-            //        options.Cookie.Expiration = TimeSpan.FromDays(10);
-            //        options.ExpireTimeSpan = TimeSpan.FromDays(10);
-            //    });
-            //services.ConfigureApplicationCookie(options =>
-            //{
-            //    // disable automatic challenge (always redirect user when on page)
-            //    options.Events.OnRedirectToLogin = (context) =>
-            //    {
-            //        context.Response.StatusCode = 401;
-            //        return Task.CompletedTask;
-            //    };
-
-            //    // cookie settings
-            //    options.Cookie.HttpOnly = true;
-            //    options.Cookie.SameSite = SameSiteMode.Strict;
-            //    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-            //    options.Cookie.Name = "CookieAuthentication";
-            //    options.LoginPath = "/login";
-            //    options.AccessDeniedPath = "/Forbidden";
-            //    options.Cookie.Expiration = TimeSpan.FromDays(10);
-            //    options.ExpireTimeSpan = TimeSpan.FromDays(10);
-            //});
-
-            //services.Configure<CookiePolicyOptions>(options =>
-            //{
-            //    // No consent check needed here, change this to TRUE later
-            //    options.CheckConsentNeeded = context => true;
-            //    options.MinimumSameSitePolicy = SameSiteMode.None;
-            //});
-
-            //services.AddSession(options =>
-            //{
-            //    options.Cookie.IsEssential = true;
-            //});
                 
             // requires using Microsoft.Extensions.Options
             services.Configure<UserDatabaseSettings>(
@@ -140,6 +87,19 @@ namespace RSIVueloAPI
                 sp.GetRequiredService<IOptions<UserDatabaseSettings>>().Value);
 
             services.AddSingleton<UserService>();
+
+            // add csrf tokens globally
+            //services.AddMvc(options =>
+            //    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
+            // changing options on csrf tokens (default = checks form field)
+            // validation check to see if 'X-CSRF-TOKEN' is in the header
+            services.AddAntiforgery(options =>
+            {
+                options.Cookie.Name = "AntiforgeryToken";
+                options.HeaderName = "X-CSRF-TOKEN";
+                options.SuppressXFrameOptionsHeader = false;
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IConfiguration>(Configuration);
