@@ -34,6 +34,7 @@ namespace RSIVueloAPI.Services
         public User Create(UserDTO user)
         {
             User newUser = new User(user);
+
             // all newly created users will have 'user' role, empty favorites list and [id] attribute set by MongoDB
             newUser.Role = "user";
             newUser.favorites = new List<string>();
@@ -87,17 +88,17 @@ namespace RSIVueloAPI.Services
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
 
+            // null if user is not in the database
             User user = _users.Find(x => x.UserName.Equals(username)).FirstOrDefault();
 
             if (user != null && VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt)) 
                 return user;
-
             else // user not found or wrong password
                 return null;
         }
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
+        {            
             if (password == null) throw new ArgumentNullException("password");
             if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("value cannot be empty or whitespace only.", "password");
 
