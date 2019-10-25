@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input, Button, Form, notification, List, Col, Row } from "antd";
 import { useLocation } from "react-router";
 import Config from "../config/app.local.config";
-import NavHeader from '../NavHeader/navHeader';
+import Banner from '../NavHeader/banner';
 
 const HeliDetailPage = () => {
   let location = useLocation();
@@ -86,17 +86,7 @@ const HeliDetailPage = () => {
   return (
     <>
       <div className='mainContent'>
-        <Row className='header'>
-          <Col span={1} offset={2}>
-            <h1 className="big-title">
-              Helicopters
-            </h1>
-          </Col>
-          <Col span={1} offset={18}>
-            <NavHeader />
-          </Col>
-        </Row>
-
+        <Banner />
         {auth ? (
           <>
             <h1 className="big-title">Edit Helicopter</h1>

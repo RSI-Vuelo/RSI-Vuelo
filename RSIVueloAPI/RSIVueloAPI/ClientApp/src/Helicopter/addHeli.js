@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input, Button, Form, Row, Col } from "antd";
 import Config from "../config/app.local.config";
-import NavHeader from '../NavHeader/navHeader';
+import Banner from '../NavHeader/banner';
 
 function AddHeli(props) {
   const [heliModel, setHeliModel] = useState();
@@ -74,17 +74,7 @@ function AddHeli(props) {
   return (
     <>
       <div className='mainContent'>
-        <Row className='header'>
-          <Col span={1} offset={2}>
-            <h1 className="big-title">
-              Helicopters
-            </h1>
-          </Col>
-          <Col span={1} offset={18}>
-            <NavHeader />
-          </Col>
-        </Row>
-
+        <Banner />
         <h1 className="big-title">Add a Helicopter</h1>
         <Form
           {...formItemLayout}
