@@ -49,18 +49,7 @@ const HeliDetailPage = () => {
   }
 
   function updateHelicopter() {
-    const heli = {
-      type: type,
-      heliModel: heliModel,
-      capWeight: capWeight,
-      crewMax: crewMax,
-      crewMin: crewMin,
-      fuseLength: fuseLength,
-      heliHeight: heliHeight,
-      rotorDiam: rotorDiam,
-      engineType: engineType,
-      maxSpeed: maxSpeed
-    };
+    const heli = { type, heliModel, capWeight, crewMax, crewMin, fuseLength, heliHeight, rotorDiam, engineType, maxSpeed };
 
     fetch(`${Config.helicopterServiceUrl}`, {
       method: `PUT`,
