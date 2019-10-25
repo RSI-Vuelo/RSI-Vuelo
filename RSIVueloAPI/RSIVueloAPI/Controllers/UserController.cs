@@ -17,26 +17,32 @@ using RSIVueloAPI.Helpers;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Antiforgery;
 
 namespace RSIVueloAPI.Controllers
 {
     [Authorize]
     [ApiController]
+    [AutoValidateAntiforgeryToken]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
         private readonly AppSettings _appSettings;
+        private IAntiforgery _antiForgery;
 
         public UserController(UserService userService,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings,
+                              IAntiforgery antiForgery)
         {
             _userService = userService;
             _appSettings = appSettings.Value;
+            _antiForgery = antiForgery;
         }
 
         [AllowAnonymous]
         [HttpPost("Authenticate")]
+        [IgnoreAntiforgeryToken]
         public IActionResult Authenticate([FromBody]UserDTO dto)
         {
             var user = _userService.LoginUser(dto.UserName, dto.Password);
@@ -44,6 +50,7 @@ namespace RSIVueloAPI.Controllers
             if (dto == null)
                 return NotFound();
 
+            // successful login, so generate security checks
             // initialize jwt token w/ values
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -75,8 +82,13 @@ namespace RSIVueloAPI.Controllers
             options.Secure = true;
             options.Path = "/login";
             options.Expires = DateTime.Now.AddDays(10);
-            options.IsEssential = true; 
-            Response.Cookies.Append("CookieKey", "true", options);        
+            options.IsEssential = true;
+            var random = Guid.NewGuid().ToString();
+
+            Response.Cookies.Append("CookieKey", random, options);
+
+            // generate csrf token w/ values
+            var csrf = _antiForgery.GetAndStoreTokens(HttpContext);
 
             return Ok(new
             {
@@ -103,6 +115,7 @@ namespace RSIVueloAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("[action]")]
+        [IgnoreAntiforgeryToken]
         public ActionResult<User> CreateUser(UserDTO user)
         {
             var addedUser = _userService.Create(user);
@@ -137,12 +150,15 @@ namespace RSIVueloAPI.Controllers
         }
 
         [HttpPost("[action]")]
+        [IgnoreAntiforgeryToken]
         public IActionResult Login(string username, string password)
         {
             var user =_userService.LoginUser(username, password);
 
             if (user == null) // failed to login
                 return StatusCode(StatusCodes.Status401Unauthorized);
+
+
             return Ok(user);
         }
 
@@ -150,7 +166,7 @@ namespace RSIVueloAPI.Controllers
         public IActionResult Logout()
         {
             Response.Cookies.Delete("CookieKey");
-            return Ok();
+            return NoContent();
         }
     }
 }

@@ -88,6 +88,19 @@ namespace RSIVueloAPI
 
             services.AddSingleton<UserService>();
 
+            // add csrf tokens globally
+            //services.AddMvc(options =>
+            //    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
+            // changing options on csrf tokens (default = checks form field)
+            // validation check to see if 'X-CSRF-TOKEN' is in the header
+            services.AddAntiforgery(options =>
+            {
+                options.Cookie.Name = "AntiforgeryToken";
+                options.HeaderName = "X-CSRF-TOKEN";
+                options.SuppressXFrameOptionsHeader = false;
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IConfiguration>(Configuration);
 
