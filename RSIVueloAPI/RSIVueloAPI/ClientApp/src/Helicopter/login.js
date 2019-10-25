@@ -33,6 +33,7 @@ function Login(props) {
     });
     const userData = await response.json();
     if (!response.ok) throw new Error(response.status);
+
     localStorage.setItem("token", userData.token);
     localStorage.setItem("username", userData.username);
     refreshPage();
