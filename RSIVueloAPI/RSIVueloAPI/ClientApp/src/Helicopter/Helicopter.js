@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Input, Drawer, Button, Divider, Slider, Radio, Col, Row } from "antd";
 import { isEmpty } from "lodash";
 import escapeStringRegexp from "escape-string-regexp";
-import NavHeader from '../NavHeader/navHeader';
-
+import Banner from '../NavHeader/banner';
 import HelicopterList from "./helicopter-list";
+
 function Helicopter(props) {
   const { Search } = Input;
   const [filtHeli, setFiltHeli] = useState([]);
@@ -99,19 +99,7 @@ function Helicopter(props) {
 
   return (
     <div className='mainContent'>
-      <Row className='header'>
-        <Col span={1} offset={2}>
-          <h1 className="big-title">
-            {typeSelected === "All" || isEmpty(typeSelected)
-              ? "Helicopters"
-              : typeSelected}
-          </h1>
-        </Col>
-        <Col span={1} offset={18}>
-          <NavHeader />
-        </Col>
-      </Row>
-
+      <Banner />
       <Search
         placeholder={`Search for${
           typeSelected === "All" || isEmpty(typeSelected)

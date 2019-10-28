@@ -13,7 +13,6 @@ import Login from "./Helicopter/login";
 import SignUp from "./Helicopter/signUp";
 
 function App() {
-  const { Content } = Layout;
   const [helicopters, setHelicopters] = useState([]);
 
   fetch(`${Config.helicopterServiceUrl}`, { method: `GET` })
@@ -45,34 +44,32 @@ function App() {
   return (
     <Router>
       <Layout className="layout">
-        <Content className="content">
-          <Route
-            path="/"
-            exact
-            render={() => (
-              <Helicopter
-                helicopters={helicopters}
-                handleError={handleError}
-              />
-            )}
-          />
-          <Route
-            path="/addHeli"
-            exact
-            render={() => <AddHeli handleError={handleError} />}
-          />
-          <Route
-            path={`/heliDetailPage/:id`}
-            exact
-            render={() => <HeliDetailPage />}
-          />
-          <Route
-            path="/login"
-            exact
-            render={() => <Login users={users} />}
-          />
-          <Route path="/signUp" exact render={() => <SignUp />} />
-        </Content>
+        <Route
+          path="/"
+          exact
+          render={() => (
+            <Helicopter
+              helicopters={helicopters}
+              handleError={handleError}
+            />
+          )}
+        />
+        <Route
+          path="/addHeli"
+          exact
+          render={() => <AddHeli handleError={handleError} />}
+        />
+        <Route
+          path={`/heliDetailPage/:id`}
+          exact
+          render={() => <HeliDetailPage />}
+        />
+        <Route
+          path="/login"
+          exact
+          render={() => <Login users={users} />}
+        />
+        <Route path="/signUp" exact render={() => <SignUp />} />
       </Layout>
     </Router>
   );

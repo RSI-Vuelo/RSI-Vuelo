@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Form, Input, Row, Col, Card, Avatar, Button } from "antd";
+import { Form, Input, Row, Col, Card, Avatar, Button, notification } from "antd";
 import { Link } from "react-router-dom";
 import Config from "../config/app.local.config";
-import NavHeader from '../NavHeader/navHeader';
+import Banner from '../NavHeader/banner';
 
 function Login(props) {
   const [username, setUsername] = useState("");
@@ -26,34 +26,28 @@ function Login(props) {
       method: "POST",
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'X-CSRF-TOKEN': '123'
       },
       accepts: 'application/json',
       body: JSON.stringify(user)
     });
-    const userData = await response.json();
-    if (!response.ok) throw new Error(response.status);
-
-    localStorage.setItem("token", userData.token);
-    localStorage.setItem("username", userData.username);
-    refreshPage();
-    clearFields();
+    try {
+      const userData = await response.json();
+      if (!response.ok) throw new Error(response.status);
+      localStorage.setItem("token", userData.token);
+      localStorage.setItem("username", userData.username);
+      refreshPage();
+      clearFields();
+    } catch (err) {
+      notification(err);
+    }
   }
 
   return (
     <>
       <div className='mainContent'>
-        <Row className='header'>
-          <Col span={1} offset={2}>
-            <h1 className="big-title">
-              Helicopters
-            </h1>
-          </Col>
-          <Col span={1} offset={18}>
-            <NavHeader />
-          </Col>
-        </Row>
-
+        <Banner />
         <Card className="loginCard">
           <Avatar size={120} className="loginIcon" icon="user" />
           <h1 className="big-title">Log In</h1>

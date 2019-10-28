@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Card, Avatar, Row, Col } from "antd";
 import Config from "../config/app.local.config";
-import NavHeader from '../NavHeader/navHeader';
+import Banner from '../NavHeader/banner';
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -17,17 +17,7 @@ function SignUp() {
   return (
     <>
       <div className='mainContent'>
-        <Row className='header'>
-          <Col span={1} offset={2}>
-            <h1 className="big-title">
-              Helicopters
-            </h1>
-          </Col>
-          <Col span={1} offset={18}>
-            <NavHeader />
-          </Col>
-        </Row>
-
+        <Banner />
         <Card className="loginCard">
           <Avatar size={120} className="loginIcon" icon="user" />
           <h1 className="big-title">Create Account</h1>
