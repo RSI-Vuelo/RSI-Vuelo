@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Drawer, Button, Divider, Slider, Radio, Col, Row } from "antd";
+import { Input, Drawer, Button, Divider, Slider, Radio } from "antd";
 import { isEmpty } from "lodash";
 import escapeStringRegexp from "escape-string-regexp";
 import Banner from '../NavHeader/banner';
