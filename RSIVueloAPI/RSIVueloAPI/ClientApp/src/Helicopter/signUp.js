@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Form, Input, Button, Card, Avatar, Row, Col } from "antd";
 import Config from "../config/app.local.config";
 import Banner from '../NavHeader/banner';
@@ -84,10 +85,6 @@ function SignUp() {
       })
       .catch(err => {
         console.log(err);
-        // notification[`error: ${err}`]({
-        //   message: 'Oh No! Something went wrong!',
-        //   description: `Sorry about that! Your account was created`
-        // });
       });
   }
 }

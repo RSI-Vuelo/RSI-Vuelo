@@ -96,20 +96,3 @@ function Login(props) {
 
 export default Login;
 
-//.then(res => {
-    //  console.log(res);
-    //  setToken(res.token);
-    //})
-    //.then(() => {
-    //  localStorage.setItem("token", token);
-    //  localStorage.setItem("username", username);
-    //  // clearFields();
-    //  // refreshPage();
-    //})
-    //.catch(err => {
-    //  notification["error"]({
-    //    message: "Oh No! Something went wrong!",
-    //    description: Sorry about that! We could not sign you in
-    //  });
-    //  clearFields();
-    //});

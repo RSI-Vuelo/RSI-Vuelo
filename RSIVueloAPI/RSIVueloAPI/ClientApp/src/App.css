@@ -16,12 +16,23 @@
   height: 100vh;
 }
 
-/* .header {
-  padding: 5vw;
-} */
+
+.userLogin {
+  float: right;
+  border-radius: 20px;
+}
+
+.flex-container {
+  display: flex;
+}
 
 .detailImg {
   max-width: 75%;
+}
+
+.heliDescriptions {
+  display: flex;
+
 }
 
 .heli-title {
@@ -75,6 +86,7 @@
 }
 
 .big-title {
+
   color: midnightblue;
   text-shadow: white 1px 0 10px;
   padding-top: 2vh;

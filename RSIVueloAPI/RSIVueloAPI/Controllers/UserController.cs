@@ -46,7 +46,6 @@ namespace RSIVueloAPI.Controllers
         public IActionResult Authenticate([FromBody]UserDTO dto)
         {
             var user = _userService.LoginUser(dto.UserName, dto.Password);
-
             if (dto == null)
                 return NotFound();
 
@@ -65,13 +64,11 @@ namespace RSIVueloAPI.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-
             // cookie auth
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName)
             };
-
             var userIdentity = new ClaimsIdentity(claims, "Login");
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
 
@@ -83,10 +80,9 @@ namespace RSIVueloAPI.Controllers
             options.Path = "/login";
             options.Expires = DateTime.Now.AddDays(10);
             options.IsEssential = true;
+            
             var random = Guid.NewGuid().ToString();
-
             Response.Cookies.Append("CookieKey", random, options);
-
             // generate csrf token w/ values
             var csrf = _antiForgery.GetAndStoreTokens(HttpContext);
 
@@ -107,7 +103,6 @@ namespace RSIVueloAPI.Controllers
         public ActionResult<User> GetUser(string id)
         {
             var user = _userService.Get(id);
-
             if (user == null)
                 return StatusCode(StatusCodes.Status404NotFound);
             return user;
@@ -119,7 +114,6 @@ namespace RSIVueloAPI.Controllers
         public ActionResult<User> CreateUser(UserDTO user)
         {
             var addedUser = _userService.Create(user);
-
             if (addedUser == null)
                 return StatusCode(StatusCodes.Status409Conflict);
 
@@ -130,7 +124,6 @@ namespace RSIVueloAPI.Controllers
         public IActionResult UpdateUser(string id, User userIn)
         {
             var user = _userService.Get(id);
-
             if (user == null)
                 return StatusCode(StatusCodes.Status409Conflict);
             _userService.Update(id, userIn);
@@ -141,10 +134,8 @@ namespace RSIVueloAPI.Controllers
         public IActionResult DeleteUser(string id)
         {
             var user = _userService.Get(id);
-
             if (user == null)
                 return StatusCode(StatusCodes.Status404NotFound);
-
             _userService.Remove(user.Id);
             return Ok(user);
         }

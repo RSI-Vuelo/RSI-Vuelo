@@ -73,7 +73,7 @@ namespace RSIVueloAPI
                 ValidateAudience = false
             };
                 });
-                
+
             // requires using Microsoft.Extensions.Options
             services.Configure<UserDatabaseSettings>(
                 Configuration.GetSection(nameof(UserDatabaseSettings)));
@@ -133,7 +133,6 @@ namespace RSIVueloAPI
 
             app.UseCookiePolicy();
             app.UseAuthentication();
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -148,7 +147,6 @@ namespace RSIVueloAPI
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
-
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
