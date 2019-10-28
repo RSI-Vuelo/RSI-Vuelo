@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import Config from "../config/app.local.config";
 import Banner from '../NavHeader/banner';
 
+
 const HeliDetailPage = () => {
   let location = useLocation();
   const heli = location.state.helicopter;
@@ -49,7 +50,9 @@ const HeliDetailPage = () => {
   }
 
   function updateHelicopter() {
+
     const heli = { type, heliModel, capWeight, crewMax, crewMin, fuseLength, heliHeight, rotorDiam, engineType, maxSpeed };
+
 
     fetch(`${Config.helicopterServiceUrl}`, {
       method: `PUT`,

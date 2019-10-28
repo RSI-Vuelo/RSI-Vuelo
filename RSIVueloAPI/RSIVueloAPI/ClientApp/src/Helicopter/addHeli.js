@@ -40,7 +40,9 @@ function AddHeli(props) {
   }
 
   function addNewHelicopter() {
+
     const newHeli = { type, heliModel, capWeight, crewMax, crewMin, fuseLength, heliHeight, rotorDiam, engineType, maxSpeed };
+
 
     fetch(`${Config.helicopterServiceUrl}`, {
       method: `POST`,
@@ -62,6 +64,7 @@ function AddHeli(props) {
 
   return (
     <>
+
       <div className='mainContent'>
         <Banner />
         <h1 className="big-title">Add a Helicopter</h1>
