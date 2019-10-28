@@ -1,59 +1,69 @@
 import React, { useState } from 'react';
+import { Icon, Drawer, Col, Row } from 'antd';
 import { Link } from 'react-router-dom';
-import { Menu, Icon } from 'antd';
 
 const NavHeader = (props) => {
   const [auth] = useState(localStorage.getItem('token') || '');
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const { SubMenu } = Menu;
+  function toggleMenu() {
+    console.log('here');
+    if (menuOpen) {
+      setMenuOpen(false);
+    } else {
+      setMenuOpen(true);
+    }
+  }
 
   return (
     <>
-      <Menu mode="horizontal" theme='dark'>
-        <Menu.Item className='home' key='home'>
-          <Link to="/">
-            <Icon type="home" />
-            Home
-            </Link>
-        </Menu.Item>
-        {auth ? <Menu.Item className='addHeli'>
-          <Link to="/addHeli">
-            <Icon type="plus-circle" />
-            Add Helicopter
-            </Link>
-        </Menu.Item> : ''}
-        {auth ?
-          <SubMenu className='userLogin' title={<><Icon type="profile" className='userProfileItem' />{localStorage.username}</>} >
-            <Menu.Item>
-              <Link to='/' onClick={() => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('username');
-                document.location.reload();
-              }}>
-                <Icon type="profile" />
-                Logout
-            </Link>
-            </Menu.Item>
-          </SubMenu>
-
-          :
-          <Menu.Item className='userLogin'>
-            <Link to={{
-              pathname: '/login',
-              state: {
-                users: props.users
-              }
-            }}
-            >
-              <Icon type="profile" />
-              Login
-            </Link>
-
-          </Menu.Item>
-        }
-      </Menu>
+      <Icon type="right-square" theme="twoTone" onClick={toggleMenu} className='menuIcon' />
+      <div className='navHeader'>
+        <Drawer
+          placement='top'
+          onClose={() => setMenuOpen(false)}
+          visible={menuOpen}
+        >
+          <Row>
+            <Col span={3} offset={1}>
+              <Link to="/">
+                <h1 className='drawerContentTitle'><Icon type="home" />Home</h1>
+              </Link>
+            </Col>
+            {auth ?
+              <Col span={5}>
+                <Link to="/addHeli">
+                  <h1 className='drawerContentTitle'><Icon type="plus-circle" />Add Helicopter</h1>
+                </Link>
+              </Col>
+              : ''}
+            {auth ?
+              <>
+                <Col span={3} offset={10}>
+                  <Link to='/' onClick={() => {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('username');
+                    document.location.reload();
+                  }}>
+                    <h1 className='drawerContentTitle'><Icon type="profile" />Logout</h1>
+                  </Link>
+                </Col>
+              </>
+              :
+              <Col span={3} offset={16}>
+                <Link to={{
+                  pathname: '/login',
+                  state: { users: props.users }
+                }}>
+                  <h1 className='drawerContentTitle'><Icon type="profile" />Login</h1>
+                </Link>
+              </Col>
+            }
+          </Row>
+        </Drawer>
+      </div>
     </>
   )
 }
 
-export default NavHeader; 
+export default NavHeader;

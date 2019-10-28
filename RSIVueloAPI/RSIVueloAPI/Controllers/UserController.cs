@@ -17,33 +17,40 @@ using RSIVueloAPI.Helpers;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Antiforgery;
 
 namespace RSIVueloAPI.Controllers
 {
     [Authorize]
     [ApiController]
+    [AutoValidateAntiforgeryToken]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
         private readonly AppSettings _appSettings;
+        private IAntiforgery _antiForgery;
 
         public UserController(UserService userService,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings,
+                              IAntiforgery antiForgery)
         {
             _userService = userService;
             _appSettings = appSettings.Value;
+            _antiForgery = antiForgery;
         }
 
         [AllowAnonymous]
         [HttpPost("Authenticate")]
+        [IgnoreAntiforgeryToken]
         public IActionResult Authenticate([FromBody]UserDTO dto)
         {
             var user = _userService.LoginUser(dto.UserName, dto.Password);
-
             if (dto == null)
                 return NotFound();
 
+            // successful login, so generate security checks
+            // initialize jwt token w/ values
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -57,27 +64,27 @@ namespace RSIVueloAPI.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-
             // cookie auth
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName)
             };
             var userIdentity = new ClaimsIdentity(claims, "Login");
-
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+
+            // cookie settings
             var options = new CookieOptions();
             options.HttpOnly = true;
             options.SameSite = SameSiteMode.Strict;
             options.Secure = true;
             options.Path = "/login";
             options.Expires = DateTime.Now.AddDays(10);
-            options.IsEssential = true; // don't know if need this
-            Response.Cookies.Append("key", "value", options);
+            options.IsEssential = true;
             
-           // Task.Run(async () => await HttpContext.Authentication.SignInAsync("CookieAuthentication", principal)).RunSynchronously();
-           // Task.Run(async () => await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(
-           //     , principal)).RunSynchronously();
+            var random = Guid.NewGuid().ToString();
+            Response.Cookies.Append("CookieKey", random, options);
+            // generate csrf token w/ values
+            var csrf = _antiForgery.GetAndStoreTokens(HttpContext);
 
             return Ok(new
             {
@@ -96,7 +103,6 @@ namespace RSIVueloAPI.Controllers
         public ActionResult<User> GetUser(string id)
         {
             var user = _userService.Get(id);
-
             if (user == null)
                 return StatusCode(StatusCodes.Status404NotFound);
             return user;
@@ -104,11 +110,10 @@ namespace RSIVueloAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("[action]")]
+        [IgnoreAntiforgeryToken]
         public ActionResult<User> CreateUser(UserDTO user)
         {
-            //User serialUser = (User) JsonConvert.DeserializeObject(user);
             var addedUser = _userService.Create(user);
-
             if (addedUser == null)
                 return StatusCode(StatusCodes.Status409Conflict);
 
@@ -119,7 +124,6 @@ namespace RSIVueloAPI.Controllers
         public IActionResult UpdateUser(string id, User userIn)
         {
             var user = _userService.Get(id);
-
             if (user == null)
                 return StatusCode(StatusCodes.Status409Conflict);
             _userService.Update(id, userIn);
@@ -130,32 +134,17 @@ namespace RSIVueloAPI.Controllers
         public IActionResult DeleteUser(string id)
         {
             var user = _userService.Get(id);
-
             if (user == null)
                 return StatusCode(StatusCodes.Status404NotFound);
-
             _userService.Remove(user.Id);
-            return Ok(user);
-        }
-
-        [HttpPost("[action]")]
-        public IActionResult Login(string username, string password)
-        {
-            var user =_userService.LoginUser(username, password);
-            if (user != null) // user failed to login
-                return StatusCode(StatusCodes.Status401Unauthorized);
             return Ok(user);
         }
 
         [HttpGet("[action]")]
         public IActionResult Logout()
         {
-            //Task authCheck = null;
-            //Task.Run(async () => await HttpContext.Authentication.SignOutAsync("CookieAuthentication")).RunSynchronously();
-            //Task.Run(async () => await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync(
-            //    ).RunSynchronously();
-            Response.Cookies.Delete("key");
-            return Ok();
+            Response.Cookies.Delete("CookieKey");
+            return NoContent();
         }
     }
 }
