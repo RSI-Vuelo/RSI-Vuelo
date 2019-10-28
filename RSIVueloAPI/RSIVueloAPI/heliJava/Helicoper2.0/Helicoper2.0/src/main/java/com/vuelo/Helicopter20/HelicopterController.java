@@ -38,9 +38,17 @@ public class HelicopterController {
     @RequestMapping("/api/helicopter")
     public  String getAllHelicopters() throws JsonProcessingException {
         List<Helicopter> h = helicopterRepository.findAll();
+
+        //Output to front end
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(h);
+
+        //Read and convert to object from frontend
+       // List<Helicopter> h2 =  objectMapper.readValue( json , objectMapper.getTypeFactory()
+             //   .constructCollectionType(List.class, Helicopter.class));
+        System.out.println(json);
         return json;
+        // return heliRepo.findByModel(model);
     }
 
     @PostMapping("/Helicopter/createHeli")
