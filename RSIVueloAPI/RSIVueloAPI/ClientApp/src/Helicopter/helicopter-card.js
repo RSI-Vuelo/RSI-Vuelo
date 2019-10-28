@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const { Meta } = Card;
 
 const HelicopterCard = (props) => {
-
+  console.log(props.helicopter.url);
   return (
     <>
       <Link to={{
@@ -19,7 +19,7 @@ const HelicopterCard = (props) => {
           < Card
             hoverable
             className='helicopter-card'
-            cover={< img alt="example" src={props.helicopter.src} className='helicopter-Img' />}
+            cover={<img alt={props.helicopter.model} src={props.helicopter.url} className='helicopter-Img' />}
           >
             <Meta title={props.helicopter.model} description={props.helicopter.date} />
           </Card >

@@ -7,7 +7,7 @@ import Banner from '../NavHeader/banner';
 const HeliDetailPage = () => {
   let location = useLocation();
   const heli = location.state.helicopter;
-  const [heliUrl] = useState(heli.src);
+  const [heliUrl] = useState(heli.url);
   const [heliModel, setHeliModel] = useState(heli.model);
   const [type, setType] = useState(heli.type);
   const [capWeight, setCapWeight] = useState(heli.capWeight);
