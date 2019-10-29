@@ -66,26 +66,10 @@ namespace RSIVueloAPI.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            // cookie auth
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.UserName)
-            };
+            var guid = Guid.NewGuid().ToString();
 
-            var userIdentity = new ClaimsIdentity(claims, "Login");
-            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-
-            // cookie settings
-            var options = new CookieOptions();
-            options.HttpOnly = true;
-            options.SameSite = SameSiteMode.Strict;
-            options.Secure = true;
-            options.Path = "/login";
-            options.Expires = DateTime.Now.AddDays(10);
-            options.IsEssential = true;
-            var random = Guid.NewGuid().ToString();
-
-            Response.Cookies.Append("CookieKey", random, options);
+            // generate session ID
+            HttpContext.Session.SetString("SID", guid);
 
             // generate csrf token w/ values
             var csrf = _antiForgery.GetAndStoreTokens(HttpContext);
@@ -95,8 +79,9 @@ namespace RSIVueloAPI.Controllers
                 Id = user.Id,
                 Username = user.UserName,
                 Email = user.Email,
-                Token = tokenString
-            });
+                Token = tokenString,
+                CSRF = csrf
+        });
         }
 
         [HttpGet("[action]")]
@@ -152,7 +137,12 @@ namespace RSIVueloAPI.Controllers
         [HttpGet("[action]")]
         public IActionResult Logout()
         {
-            Response.Cookies.Delete("CookieKey");
+            // remove data and delete session ID
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                if (cookie == "SID")
+                    Response.Cookies.Delete(cookie);
+            }
             return NoContent();
         }
     }

@@ -35,6 +35,19 @@ namespace RSIVueloAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // session id options
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                options.Cookie.Name = "SID";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.IdleTimeout = TimeSpan.FromHours(5);
+                options.Cookie.MaxAge = TimeSpan.FromHours(23);
+            });
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -70,9 +83,13 @@ namespace RSIVueloAPI
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = false,
-                ValidateAudience = false
+                ValidateAudience = false,
+                TokenDecryptionKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("abcd")),
             };
-                });
+            });
+
+            // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
                 
             // requires using Microsoft.Extensions.Options
             services.Configure<UserDatabaseSettings>(
@@ -88,6 +105,13 @@ namespace RSIVueloAPI
 
             services.AddSingleton<UserService>();
 
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            //    options.CheckConsentNeeded = context => true;
+            //    options.MinimumSameSitePolicy = SameSiteMode.None;
+            //});
+
             // add csrf tokens globally
             //services.AddMvc(options =>
             //    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
@@ -101,7 +125,6 @@ namespace RSIVueloAPI
                 options.SuppressXFrameOptionsHeader = false;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IConfiguration>(Configuration);
 
             // In production, the React files will be served from this directory
@@ -131,6 +154,7 @@ namespace RSIVueloAPI
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "User API v1");
             }); // URL: /swagger
 
+            app.UseSession();
             app.UseCookiePolicy();
             app.UseAuthentication();
 

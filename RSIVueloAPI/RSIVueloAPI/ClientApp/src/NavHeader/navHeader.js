@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Icon, Drawer, Col, Row } from 'antd';
 import { Link } from 'react-router-dom';
+import Config from "../config/app.local.config";
 
 const NavHeader = (props) => {
   const [auth] = useState(localStorage.getItem('token') || '');
@@ -13,6 +14,17 @@ const NavHeader = (props) => {
     } else {
       setMenuOpen(true);
     }
+  }
+
+    function handleSession() {
+      var token = localStorage.getItem('token');
+      fetch(`${Config.userServiceUrl}Logout`, {
+          method: "GET",
+          headers: {
+              'Authorization': `Bearer ${token}`,
+              //'X-CSRF-TOKEN': 
+          }
+      });
   }
 
   return (
@@ -41,9 +53,10 @@ const NavHeader = (props) => {
               <>
                 <Col span={3} offset={10}>
                   <Link to='/' onClick={() => {
+                    handleSession();
                     localStorage.removeItem('token');
                     localStorage.removeItem('username');
-                    document.location.reload();
+                    //document.location.reload();
                   }}>
                     <h1 className='drawerContentTitle'><Icon type="profile" />Logout</h1>
                   </Link>
