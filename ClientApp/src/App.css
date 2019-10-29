@@ -1,0 +1,143 @@
+.search {
+  margin: auto;
+  max-width: calc(80% + 10vmin);
+}
+
+.filterButton {
+  margin: 1em auto;
+}
+
+.mainContent {
+  background-image: url('\images\CH-47_Chinook_helicopter_flyby.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: calc(30px + 3vw);
+  height: 100vh;
+}
+
+
+.userLogin {
+  float: right;
+  border-radius: 20px;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.detailImg {
+  max-width: 75%;
+}
+
+.heliDescriptions {
+  display: flex;
+
+}
+
+.heli-title {
+  margin: 5% 0 0 25%;
+}
+
+.helicopter-Img {
+  height: 20vmin;
+  object-fit: cover;
+}
+
+.loginCard {
+  width: 60%;
+  margin: 10vmin auto;
+  text-align: center;
+  padding: 1vmin;
+}
+
+.loginInput {
+  margin-left: 17%;
+}
+
+.loginButton {
+  margin: 0 0 15px 0;
+}
+
+.ant-card-body {
+  padding: 24px;
+  zoom: 1;
+}
+
+.ant-card-bordered {
+  border: 1px solid darkgray;
+}
+
+.loginIcon {
+  margin: -100px 0 5px 0;
+  border: solid 1px gray;
+}
+
+.ant-card-cover img {
+  border-radius: 2px 2px 0 0;
+}
+
+.addHeliButton {
+  margin-bottom: 1vmax;
+}
+
+.ant-drawer-close {
+  color: white;
+}
+
+.big-title {
+
+  color: midnightblue;
+  text-shadow: white 1px 0 10px;
+  padding-top: 2vh;
+}
+
+.drawerContentTitle {
+  color: white;
+}
+
+.ant-drawer-content, .ant-drawer-body, .navHeader {
+  background-color: midnightblue;
+  color: white;
+}
+
+.ant-layout {
+  text-align: center;
+}
+
+.menuIcon {
+  padding-top: 4.5vh;
+}
+
+.ant-menu-item-selected .header {
+  font-size: 1.1em;
+  text-shadow: 1px 1px darkslategray;
+}
+
+.ant-form-item-control {
+  margin-right: 25vmin;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 1361px) {
+  .loginCard {
+    width: 90%;
+    margin: 10vmin auto;
+    text-align: center;
+    padding: 1vmin;
+  }
+
+  .helicopter-Img {
+    height: 28vmin;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 575px) {
+  .helicopter-Img {
+    height: 50vmin;
+    object-fit: cover;
+  }
+}

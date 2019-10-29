@@ -1,6 +1,0 @@
-BlackHawk
-Chinook
-SeaRanger
-SeaHawk
-LittleBird
-Cobra
