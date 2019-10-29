@@ -79,8 +79,8 @@ namespace RSIVueloAPI.Controllers
                 Id = user.Id,
                 Username = user.UserName,
                 Email = user.Email,
+                Favorites = user.favorites,
                 Token = tokenString,
-                CSRF = csrf
         });
         }
 

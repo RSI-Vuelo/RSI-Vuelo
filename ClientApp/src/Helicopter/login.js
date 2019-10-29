@@ -27,7 +27,6 @@ function Login(props) {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Accept': 'application/json',
-        'X-CSRF-TOKEN': '123'
       },
       accepts: 'application/json',
       body: JSON.stringify(user)
@@ -37,6 +36,7 @@ function Login(props) {
       if (!response.ok) throw new Error(response.status);
       localStorage.setItem("token", userData.token);
       localStorage.setItem("username", userData.username);
+      localStorage.setItem("favorites", userData.favorites);
       refreshPage();
       clearFields();
     } catch (err) {

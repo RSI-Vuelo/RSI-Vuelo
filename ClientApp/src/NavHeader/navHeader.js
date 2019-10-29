@@ -16,17 +16,6 @@ const NavHeader = (props) => {
     }
   }
 
-    function handleSession() {
-      var token = localStorage.getItem('token');
-      fetch(`${Config.userServiceUrl}Logout`, {
-          method: "GET",
-          headers: {
-              'Authorization': `Bearer ${token}`,
-              //'X-CSRF-TOKEN': 
-          }
-      });
-  }
-
   return (
     <>
       <Icon type="right-square" theme="twoTone" onClick={toggleMenu} className='menuIcon' />
@@ -53,10 +42,10 @@ const NavHeader = (props) => {
               <>
                 <Col span={3} offset={10}>
                   <Link to='/' onClick={() => {
-                    handleSession();
+                    localStorage.removeItem('favorites');
                     localStorage.removeItem('token');
                     localStorage.removeItem('username');
-                    //document.location.reload();
+                    document.location.reload();
                   }}>
                     <h1 className='drawerContentTitle'><Icon type="profile" />Logout</h1>
                   </Link>
